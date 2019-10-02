@@ -1,78 +1,81 @@
-import React from 'react';
-import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import React from "react";
+import { Platform } from "react-native";
+import {
+  createStackNavigator,
+  createBottomTabNavigator
+} from "react-navigation";
 
-import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import TabBarIcon from "../components/TabBarIcon";
+import SummaryScreen from "../screens/SummaryScreen";
+import CalendarScreen from "../screens/CalendarScreen";
+import SettingsScreen from "../screens/SettingsScreen";
 
 const config = Platform.select({
-  web: { headerMode: 'screen' },
-  default: {},
+  web: { headerMode: "screen" },
+  default: {}
 });
 
-const HomeStack = createStackNavigator(
+const CalendarStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Calender: CalendarScreen
   },
   config
 );
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+CalendarStack.navigationOptions = {
+  tabBarLabel: "Past Parties",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
+    <TabBarIcon focused={focused} name={"md-calendar"} />
+  )
 };
 
-HomeStack.path = '';
+CalendarStack.path = "";
 
-const LinksStack = createStackNavigator(
+const SummaryStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    Summary: SummaryScreen
   },
   config
 );
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
-  ),
+SummaryStack.navigationOptions = {
+  tabBarLabel: "Summary",
+  tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name={"md-beer"} />
 };
 
-LinksStack.path = '';
+SummaryStack.path = "";
 
 const SettingsStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    Settings: SettingsScreen
   },
   config
 );
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: "Settings",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
-  ),
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-options" : "md-options"}
+    />
+  )
 };
 
-SettingsStack.path = '';
+SettingsStack.path = "";
 
-const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
-});
+const tabNavigator = createBottomTabNavigator(
+  {
+    CalendarStack,
+    SummaryStack,
+    SettingsStack
+  },
+  {
+    initialRouteName: "SummaryStack",
+    tabBarOptions: { activeTintColor: "black", allowFontScaling: true }
+  }
+);
 
-tabNavigator.path = '';
+tabNavigator.path = "";
 
 export default tabNavigator;
