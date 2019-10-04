@@ -13,7 +13,7 @@ class SummarySection extends Component {
           <Text style={styles.numItems}>{numItems}</Text>
           <Text style={styles.sectionHeader}>{sectionTitle}</Text>
         </View>
-        {this.numItems && <HorizontalRule color="black"></HorizontalRule>}
+        {this.numItems !== 0 && <HorizontalRule color="black"></HorizontalRule>}
         <View style={styles.contentContainer}>{content}</View>
       </View>
     );

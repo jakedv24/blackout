@@ -2,10 +2,16 @@ import React, { Component } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import PhoneCallSummary from "../components/PhoneCallSummary";
 import { connect } from "react-redux";
+import HeaderTitle from "../components/header/HeaderTitle";
+import HeaderSwitch from "../components/header/HeaderSwitch";
 
 class HomeScreen extends Component {
   static navigationOptions = {
-    header: null
+    headerTitle: <HeaderTitle />,
+    headerRight: <HeaderSwitch />,
+    headerStyle: {
+      style: { shadowColor: "transparent", fontFamily: "monospace" }
+    }
   };
 
   state = {};

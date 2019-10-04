@@ -29,6 +29,7 @@ export default function App(props) {
     return (
       <Provider store={store}>
         <SafeAreaView style={{ flex: 1 }}>
+          <StatusBar hidden />
           <View style={styles.container}>
             {Platform.OS === "ios" && <StatusBar barStyle="default" />}
             <AppNavigator />
