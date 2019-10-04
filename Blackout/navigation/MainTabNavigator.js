@@ -9,6 +9,8 @@ import TabBarIcon from "../components/TabBarIcon";
 import SummaryScreen from "../screens/SummaryScreen";
 import CalendarScreen from "../screens/CalendarScreen";
 import SettingsScreen from "../screens/SettingsScreen";
+import HeaderSwitch from "../components/header/HeaderSwitch";
+import HeaderTitle from "../components/header/HeaderTitle";
 
 const config = Platform.select({
   web: { headerMode: "screen" },
@@ -72,6 +74,13 @@ const tabNavigator = createBottomTabNavigator(
   },
   {
     initialRouteName: "SummaryStack",
+    defaultNavigationOptions: {
+      headerTitle: <HeaderTitle />,
+      headerRight: <HeaderSwitch />,
+      headerStyle: {
+        style: { shadowColor: "transparent", fontFamily: "monospace" }
+      }
+    },
     tabBarOptions: { activeTintColor: "black", allowFontScaling: true }
   }
 );
