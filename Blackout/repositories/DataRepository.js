@@ -32,10 +32,11 @@ const DATA = [
 ];
 
 export function getLastSavedData() {
+  // TODO implement storage on device
   return DATA[0];
 }
 
 export function getDataForStartTime(startTime) {
   // TODO implement storage on device
-  return DATA[0];
+  return DATA.find(elt => elt.startTime == startTime);
 }
