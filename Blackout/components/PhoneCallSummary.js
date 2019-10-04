@@ -1,35 +1,17 @@
 import React, { Component } from "react";
-import { View, StyleSheet, FlatList, Text } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
+import { connect } from "react-redux";
 import SummarySection from "./SummarySection";
 import PhoneCallCard from "./PhoneCallCard";
-
-const DATA = [
-  {
-    placed: true,
-    contact: "Mom",
-    startTime: "6:03pm",
-    callLength: "23 min"
-  },
-  {
-    placed: false,
-    contact: "Ex Girl",
-    startTime: "6:04pm"
-  },
-  {
-    placed: true,
-    contact: "Girlfriend",
-    startTime: "6:05pm",
-    callLength: "23 min"
-  }
-];
 
 class PhoneCallSummary extends Component {
   state = {};
 
   getPhoneCallContent = () => {
+    const { calls } = this.props;
     return (
       <FlatList
-        data={DATA}
+        data={calls}
         renderItem={({ item }) => (
           <PhoneCallCard
             style={styles.card}
@@ -46,11 +28,13 @@ class PhoneCallSummary extends Component {
   };
 
   render() {
+    const { calls } = this.props;
+
     return (
       <View>
         <SummarySection
           sectionTitle="Phone Calls"
-          numItems={3}
+          numItems={(calls && calls.length) || 0}
           content={this.getPhoneCallContent()}
         ></SummarySection>
       </View>
@@ -58,7 +42,20 @@ class PhoneCallSummary extends Component {
   }
 }
 
-export default PhoneCallSummary;
+const mapStateToProps = state => {
+  return {
+    calls: state.data ? state.data.calls : []
+  };
+};
+
+const mapDispatchToProps = () => {
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PhoneCallSummary);
 
 const styles = StyleSheet.create({
   container: {

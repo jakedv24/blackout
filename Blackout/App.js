@@ -7,6 +7,12 @@ import { Ionicons } from "@expo/vector-icons";
 
 import AppNavigator from "./navigation/AppNavigator";
 import { SafeAreaView } from "react-navigation";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import { reducer } from "./reducers/reducer";
+
+const store = createStore(reducer);
+store.subscribe(() => {});
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -21,12 +27,14 @@ export default function App(props) {
     );
   } else {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.container}>
-          {Platform.OS === "ios" && <StatusBar barStyle="default" />}
-          <AppNavigator />
-        </View>
-      </SafeAreaView>
+      <Provider store={store}>
+        <SafeAreaView style={{ flex: 1 }}>
+          <View style={styles.container}>
+            {Platform.OS === "ios" && <StatusBar barStyle="default" />}
+            <AppNavigator />
+          </View>
+        </SafeAreaView>
+      </Provider>
     );
   }
 }

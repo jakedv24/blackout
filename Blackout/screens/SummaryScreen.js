@@ -1,24 +1,52 @@
-import React from "react";
+import React, { Component } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import SummarySection from "../components/SummarySection";
 import PhoneCallSummary from "../components/PhoneCallSummary";
+import { connect } from "react-redux";
 
-export default function HomeScreen() {
-  return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}
-      >
-        <PhoneCallSummary />
-      </ScrollView>
-    </View>
-  );
+class HomeScreen extends Component {
+  static navigationOptions = {
+    header: null
+  };
+
+  state = {};
+
+  componentDidMount() {
+    this.props.loadLastData();
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
+        >
+          <PhoneCallSummary />
+        </ScrollView>
+      </View>
+    );
+  }
 }
 
-HomeScreen.navigationOptions = {
-  header: null
+const mapStateToProps = () => {
+  return {};
 };
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loadLastData: () => {
+      dispatch({
+        type: "LOAD_LAST_DATA",
+        payload: {}
+      });
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomeScreen);
 
 const styles = StyleSheet.create({
   container: {
