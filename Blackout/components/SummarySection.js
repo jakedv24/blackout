@@ -13,7 +13,7 @@ class SummarySection extends Component {
           <Text style={styles.numItems}>{numItems}</Text>
           <Text style={styles.sectionHeader}>{sectionTitle}</Text>
         </View>
-        <HorizontalRule color="black"></HorizontalRule>
+        {this.numItems && <HorizontalRule color="black"></HorizontalRule>}
         <View style={styles.contentContainer}>{content}</View>
       </View>
     );
@@ -48,14 +48,14 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start"
   },
   sectionHeader: {
-    fontSize: 35,
+    fontSize: 26,
     marginLeft: 15,
     fontFamily: Platform.OS === "ios" ? "AppleSDGothicNeo-Bold" : "Roboto",
     fontWeight: "200",
     color: "#303030"
   },
   numItems: {
-    fontSize: 35
+    fontSize: 26
   },
   contentContainer: {
     flex: 1
