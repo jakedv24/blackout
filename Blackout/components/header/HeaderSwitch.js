@@ -10,6 +10,10 @@ class HeaderSwitch extends Component {
   valueDidChange = value => {
     // TODO set this up to start / stop tracking when changed
     this.setState({ value });
+
+    if (value) {
+    } else {
+    }
   };
 
   render() {
