@@ -7,12 +7,22 @@ class PhoneCallCard extends Component {
   render() {
     return (
       <View style={styles.cardWrapper}>
-        <Ionicons
-          name="ios-call"
-          size={32}
-          color={this.props.placed ? "green" : "red"}
-        ></Ionicons>
-        <Text>{this.props.startTime}</Text>
+        <View style={styles.contentWrapper}>
+          <View style={styles.iconWrapper}>
+            <Ionicons
+              name="ios-call"
+              size={32}
+              color={this.props.placed ? "green" : "red"}
+            />
+          </View>
+          <View style={styles.textWrapper}>
+            <Text>{this.props.contact}</Text>
+            <View style={styles.subTextWrapper}>
+              <Text style={styles.subText}>{this.props.startTime}</Text>
+              <Text style={styles.subText}>{this.props.callLength}</Text>
+            </View>
+          </View>
+        </View>
       </View>
     );
   }
@@ -21,5 +31,37 @@ class PhoneCallCard extends Component {
 export default PhoneCallCard;
 
 const styles = StyleSheet.create({
-  cardWrapper: {}
+  cardWrapper: {
+    padding: 15,
+    flex: 1,
+    width: 150,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderRadius: 1,
+    borderColor: "#ddd",
+    shadowColor: "#000",
+    shadowOpacity: 0.8,
+    shadowRadius: 6,
+    elevation: 1,
+    marginVertical: 10,
+    marginHorizontal: 10
+  },
+  contentWrapper: {
+    flex: 1,
+    flexDirection: "row"
+  },
+  iconWrapper: {},
+  textWrapper: {
+    flex: 1,
+    flexDirection: "column",
+    marginLeft: 10
+  },
+  subTextWrapper: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  subText: {
+    color: "grey",
+    fontSize: 12
+  }
 });

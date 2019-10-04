@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
     fontSize: 35
   },
   contentContainer: {
-    flex: 1,
-    height: 75
+    flex: 1
   }
 });

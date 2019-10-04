@@ -6,16 +6,19 @@ import PhoneCallCard from "./PhoneCallCard";
 const DATA = [
   {
     placed: true,
+    contact: "Mom",
     startTime: "6:03pm",
     callLength: "23 min"
   },
   {
     placed: false,
+    contact: "Ex Girl",
     startTime: "6:04pm",
     callLength: "23 min"
   },
   {
     placed: true,
+    contact: "Girlfriend",
     startTime: "6:05pm",
     callLength: "23 min"
   }
@@ -31,6 +34,7 @@ class PhoneCallSummary extends Component {
         renderItem={({ item }) => (
           <PhoneCallCard
             placed={item.placed}
+            contact={item.contact}
             startTime={item.startTime}
             callLength={item.callLength}
           ></PhoneCallCard>
