@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Platform } from "react-native";
 import HorizontalRule from "./HorizontalRule";
 
 class SummarySection extends Component {
@@ -48,9 +48,11 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start"
   },
   sectionHeader: {
-    fontSize: 25,
-    marginLeft: 20,
-    marginTop: 6
+    fontSize: 35,
+    marginLeft: 15,
+    fontFamily: Platform.OS === "ios" ? "AppleSDGothicNeo-Bold" : "Roboto",
+    fontWeight: "200",
+    color: "#303030"
   },
   numItems: {
     fontSize: 35
