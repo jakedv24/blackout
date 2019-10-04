@@ -13,8 +13,7 @@ const DATA = [
   {
     placed: false,
     contact: "Ex Girl",
-    startTime: "6:04pm",
-    callLength: "23 min"
+    startTime: "6:04pm"
   },
   {
     placed: true,
@@ -33,6 +32,7 @@ class PhoneCallSummary extends Component {
         data={DATA}
         renderItem={({ item }) => (
           <PhoneCallCard
+            style={styles.card}
             placed={item.placed}
             contact={item.contact}
             startTime={item.startTime}
@@ -60,26 +60,24 @@ class PhoneCallSummary extends Component {
 
 export default PhoneCallSummary;
 
-function Item({ title }) {
-  return (
-    <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginVertical: 5
   },
-  item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16
-  },
-  title: {
-    fontSize: 32
+  card: {
+    padding: 15,
+    backgroundColor: "#fff",
+    flex: 1,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderRadius: 6,
+    borderColor: "#ddd",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 1,
+    marginVertical: 10,
+    marginHorizontal: 10
   }
 });

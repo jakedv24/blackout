@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 class PhoneCallCard extends Component {
   state = {};
   render() {
+    const { contact, startTime, callLength, placed } = this.props;
     return (
       <View style={styles.cardWrapper}>
         <View style={styles.contentWrapper}>
@@ -12,14 +13,16 @@ class PhoneCallCard extends Component {
             <Ionicons
               name="ios-call"
               size={32}
-              color={this.props.placed ? "green" : "red"}
+              color={placed ? "green" : "red"}
             />
           </View>
           <View style={styles.textWrapper}>
-            <Text>{this.props.contact}</Text>
+            <Text style={styles.contactName} numberOfLines={1}>
+              {contact}
+            </Text>
             <View style={styles.subTextWrapper}>
-              <Text style={styles.subText}>{this.props.startTime}</Text>
-              <Text style={styles.subText}>{this.props.callLength}</Text>
+              <Text style={styles.subText}>{startTime}</Text>
+              <Text style={styles.subText}>{callLength}</Text>
             </View>
           </View>
         </View>
@@ -35,8 +38,9 @@ const styles = StyleSheet.create({
     padding: 15,
     flex: 1,
     width: 150,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: 1,
+    borderRadius: 6,
+    borderWidth: 1,
+    backgroundColor: "#ffff",
     borderColor: "#ddd",
     shadowColor: "#000",
     shadowOpacity: 0.8,
@@ -54,6 +58,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     marginLeft: 10
+  },
+  contactName: {
+    fontWeight: "bold"
   },
   subTextWrapper: {
     flex: 1,

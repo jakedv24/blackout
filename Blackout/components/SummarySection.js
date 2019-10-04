@@ -1,18 +1,20 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, FlatList } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import HorizontalRule from "./HorizontalRule";
 
 class SummarySection extends Component {
   state = {};
   render() {
+    const { numItems, sectionTitle, content } = this.props;
+
     return (
       <View style={styles.summaryContainer}>
         <View style={styles.summaryHeader}>
-          <Text style={styles.numItems}>{this.props.numItems}</Text>
-          <Text style={styles.sectionHeader}>{this.props.sectionTitle}</Text>
+          <Text style={styles.numItems}>{numItems}</Text>
+          <Text style={styles.sectionHeader}>{sectionTitle}</Text>
         </View>
         <HorizontalRule color="black"></HorizontalRule>
-        <View style={styles.contentContainer}>{this.props.content}</View>
+        <View style={styles.contentContainer}>{content}</View>
       </View>
     );
   }
