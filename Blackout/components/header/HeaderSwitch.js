@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { View, StyleSheet } from "react-native";
 import { Switch } from "react-native-gesture-handler";
+import { connect } from "react-redux";
+import { startTracking } from "../../repositories/DataRepository";
+import { stopTracking } from "../../repositories/DataRepository";
+import { getLastSavedData } from "../../repositories/DataRepository";
 
 class HeaderSwitch extends Component {
   state = {
@@ -8,11 +12,18 @@ class HeaderSwitch extends Component {
   };
 
   valueDidChange = value => {
-    // TODO set this up to start / stop tracking when changed
     this.setState({ value });
 
     if (value) {
+      startTracking();
     } else {
+      stopTracking(() => {
+        getLastSavedData()
+          .then(data => {
+            this.props.loadLastData(data);
+          })
+          .catch(err => console.log(err));
+      });
     }
   };
 
@@ -23,4 +34,22 @@ class HeaderSwitch extends Component {
   }
 }
 
-export default HeaderSwitch;
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loadLastData: data => {
+      dispatch({
+        type: "LOAD_LAST_DATA",
+        payload: { data }
+      });
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HeaderSwitch);
