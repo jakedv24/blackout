@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { View, StyleSheet } from "react-native";
 import { Switch } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { startTracking } from "../../repositories/DataRepository";
@@ -34,7 +33,7 @@ class HeaderSwitch extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = () => {
   return {};
 };
 

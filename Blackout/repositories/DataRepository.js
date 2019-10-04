@@ -1,36 +1,7 @@
 import { AsyncStorage } from "react-native";
+import { getCallsForTimePeriod } from "./CallRepository";
 
 const summariesKey = "summaries";
-const DATA = {
-  startTime: "1213132", // millis since epoch
-  endTime: "1213132",
-  calls: [
-    {
-      placed: true,
-      contact: "Mom",
-      startTime: "6:03pm",
-      callLength: "23 min"
-    },
-    {
-      placed: false,
-      contact: "Ex Girl",
-      startTime: "6:04pm"
-    },
-    {
-      placed: true,
-      contact: "Girlfriend",
-      startTime: "6:05pm",
-      callLength: "23 min"
-    }
-  ],
-  messages: [
-    {
-      contact: "Mom",
-      timeSent: "12313213",
-      message: "Hello mother"
-    }
-  ]
-};
 
 export function getLastSavedData() {
   return new Promise((resolve, reject) => {
@@ -53,7 +24,14 @@ export function getLastSavedData() {
           .then(data => {
             // TODO: import libraries to access call log, messages, photos, etc.
             // and append the information to the data object here
-            resolve(DATA);
+            data = JSON.parse(data);
+            if (!data.calls) {
+              const calls = getCallsForTimePeriod(data.startTime, data.endTime);
+              data.calls = calls;
+              AsyncStorage.setItem(maxStartTime, JSON.stringify(data));
+            }
+
+            resolve(data);
           })
           .catch(err => console.log(err));
       })
@@ -84,8 +62,7 @@ export async function stopTracking(callback) {
 
     const newData = {
       startTime,
-      endTime,
-      calls: []
+      endTime
     };
 
     const newSummary = {
