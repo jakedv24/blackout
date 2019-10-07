@@ -80,8 +80,7 @@ const tabNavigator = createBottomTabNavigator(
       headerStyle: {
         style: { shadowColor: "transparent", fontFamily: "monospace" }
       }
-    },
-    tabBarOptions: { activeTintColor: "black", allowFontScaling: true }
+    }
   }
 );
 

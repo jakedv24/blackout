@@ -4,6 +4,7 @@ import PhoneCallSummary from "../components/PhoneCallSummary";
 import { connect } from "react-redux";
 import HeaderTitle from "../components/header/HeaderTitle";
 import HeaderSwitch from "../components/header/HeaderSwitch";
+import { getLastSavedData } from "../repositories/DataRepository";
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -17,7 +18,11 @@ class HomeScreen extends Component {
   state = {};
 
   componentDidMount() {
-    this.props.loadLastData();
+    getLastSavedData()
+      .then(data => {
+        this.props.loadLastData(data);
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -40,10 +45,10 @@ const mapStateToProps = () => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadLastData: () => {
+    loadLastData: data => {
       dispatch({
         type: "LOAD_LAST_DATA",
-        payload: {}
+        payload: { data }
       });
     }
   };
