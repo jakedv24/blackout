@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { Switch } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { startTracking } from "../../repositories/DataRepository";
 import { stopTracking } from "../../repositories/DataRepository";
 import { getLastSavedData } from "../../repositories/DataRepository";
+import {
+  START_TRACKING_MODAL,
+  STOP_TRACKING_MODAL
+} from "../../constants/Modals";
 
 class HeaderSwitch extends Component {
   state = {
@@ -11,38 +14,48 @@ class HeaderSwitch extends Component {
   };
 
   valueDidChange = value => {
-    this.setState({ value });
+    this.props.changeTracking(value);
 
     if (value) {
-      startTracking();
+      this.animateStartTracking();
     } else {
-      stopTracking(() => {
-        getLastSavedData()
-          .then(data => {
-            this.props.loadLastData(data);
-          })
-          .catch(err => console.log(err));
-      });
+      this.animateStopTracking();
     }
+  };
+
+  animateStartTracking = () => {
+    this.props.presentModal(START_TRACKING_MODAL);
+  };
+
+  animateStopTracking = () => {
+    this.props.presentModal(STOP_TRACKING_MODAL);
   };
 
   render() {
     return (
-      <Switch onValueChange={this.valueDidChange} value={this.state.value} />
+      <Switch onValueChange={this.valueDidChange} value={this.props.tracking} />
     );
   }
 }
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = state => {
+  return {
+    tracking: state.tracking
+  };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadLastData: data => {
+    presentModal: modal => {
       dispatch({
-        type: "LOAD_LAST_DATA",
-        payload: { data }
+        type: "CHANGE_MODAL",
+        payload: { modal }
+      });
+    },
+    changeTracking: tracking => {
+      dispatch({
+        type: "CHANGE_TRACKING",
+        payload: { tracking }
       });
     }
   };
