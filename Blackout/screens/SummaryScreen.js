@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import HeaderTitle from "../components/header/HeaderTitle";
 import HeaderSwitch from "../components/header/HeaderSwitch";
 import { getLastSavedData } from "../repositories/DataRepository";
-import { formateDateStringFromMillis } from "../utils/DateUtils";
+import { formatDateRangeFromMillis } from "../utils/DateUtils";
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -26,8 +26,8 @@ class HomeScreen extends Component {
       .catch(err => console.log(err));
   }
 
-  getDateRangeString = millis => {
-    return millis ? formateDateStringFromMillis(millis) : "";
+  getDateRangeString = (startMillis, endMillis) => {
+    return formatDateRangeFromMillis(startMillis, endMillis);
   };
 
   render() {
@@ -35,9 +35,11 @@ class HomeScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.dateRange}>{`${this.getDateRangeString(
-          startTime
-        )} to ${this.getDateRangeString(endTime)}`}</Text>
+        <Text style={styles.dateRange}>
+          {startTime !== null &&
+            endTime !== null &&
+            this.getDateRangeString(startTime, endTime)}
+        </Text>
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
