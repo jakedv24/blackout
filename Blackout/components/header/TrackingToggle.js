@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { Switch } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { stopTracking } from "../../repositories/DataRepository";
+import { stopTracking, startTracking } from "../../repositories/DataRepository";
 import { getLastSavedData } from "../../repositories/DataRepository";
 import {
   START_TRACKING_MODAL,
   STOP_TRACKING_MODAL
 } from "../../constants/Modals";
 
-class HeaderSwitch extends Component {
+class TrackingToggle extends Component {
   state = {
     value: false
   };
@@ -17,18 +17,27 @@ class HeaderSwitch extends Component {
     this.props.changeTracking(value);
 
     if (value) {
+      startTracking();
       this.animateStartTracking();
     } else {
-      this.animateStopTracking();
+      stopTracking(() => {
+        getLastSavedData()
+          .then(data => {
+            this.props.loadLastData(data);
+            this.animateStopTracking();
+          })
+          .catch(err => console.log(err));
+      });
     }
   };
 
   animateStartTracking = () => {
-    this.props.presentModal(START_TRACKING_MODAL);
+    // this.props.navigation.navigate("Tracking");
+    // this.props.presentModal(START_TRACKING_MODAL);
   };
 
   animateStopTracking = () => {
-    this.props.presentModal(STOP_TRACKING_MODAL);
+    // this.props.presentModal(STOP_TRACKING_MODAL);
   };
 
   render() {
@@ -57,6 +66,12 @@ const mapDispatchToProps = dispatch => {
         type: "CHANGE_TRACKING",
         payload: { tracking }
       });
+    },
+    loadLastData: data => {
+      dispatch({
+        type: "LOAD_LAST_DATA",
+        payload: { data }
+      });
     }
   };
 };
@@ -64,4 +79,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HeaderSwitch);
+)(TrackingToggle);

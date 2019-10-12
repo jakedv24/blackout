@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { connect } from "react-redux";
 import { START_TRACKING_MODAL, STOP_TRACKING_MODAL } from "../constants/Modals";
-import TrackingModal from "../components/modals/TrackingModal";
 
 class ModalPresenter extends Component {
   state = {};
@@ -10,7 +9,7 @@ class ModalPresenter extends Component {
   getDesiredModal = modal => {
     switch (modal) {
       case START_TRACKING_MODAL:
-        return <TrackingModal />;
+        return <View />;
       case STOP_TRACKING_MODAL:
         return (
           <View>

@@ -23,6 +23,13 @@ export const reducer = (state = {}, action) => {
       };
 
       break;
+    case "CHANGE_TRACKING":
+      state = {
+        ...state,
+        tracking: payload.tracking
+      };
+
+      break;
     default:
       break;
   }

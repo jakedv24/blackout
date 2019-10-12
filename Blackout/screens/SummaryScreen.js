@@ -3,20 +3,21 @@ import { ScrollView, StyleSheet, View, Text } from "react-native";
 import PhoneCallSummary from "../components/PhoneCallSummary";
 import { connect } from "react-redux";
 import HeaderTitle from "../components/header/HeaderTitle";
-import HeaderSwitch from "../components/header/HeaderSwitch";
+import TrackingToggle from "../components/header/TrackingToggle";
 import { getLastSavedData } from "../repositories/DataRepository";
 import { formatDateRangeFromMillis } from "../utils/DateUtils";
+import TrackingScreen from "./TrackingScreen";
 
-class HomeScreen extends Component {
-  static navigationOptions = {
-    headerTitle: <HeaderTitle />,
-    headerRight: <HeaderSwitch />,
-    headerStyle: {
-      style: { shadowColor: "transparent", fontFamily: "monospace" }
-    }
+class SummaryScreen extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerTitle: <HeaderTitle />,
+      headerRight: <TrackingToggle navigation={navigation} />,
+      headerStyle: {
+        style: { shadowColor: "transparent", fontFamily: "monospace" }
+      }
+    };
   };
-
-  state = {};
 
   componentDidMount() {
     getLastSavedData()
@@ -32,6 +33,9 @@ class HomeScreen extends Component {
 
   render() {
     let { startTime, endTime } = this.props;
+    if (this.props.tracking) {
+      return <TrackingScreen></TrackingScreen>;
+    }
 
     return (
       <View style={styles.container}>
@@ -54,7 +58,8 @@ class HomeScreen extends Component {
 const mapStateToProps = state => {
   return {
     startTime: state.data ? state.data.startTime : null,
-    endTime: state.data ? state.data.endTime : null
+    endTime: state.data ? state.data.endTime : null,
+    tracking: state.tracking
   };
 };
 
@@ -72,7 +77,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomeScreen);
+)(SummaryScreen);
 
 const styles = StyleSheet.create({
   container: {

@@ -9,8 +9,9 @@ import TabBarIcon from "../components/TabBarIcon";
 import SummaryScreen from "../screens/SummaryScreen";
 import CalendarScreen from "../screens/CalendarScreen";
 import SettingsScreen from "../screens/SettingsScreen";
-import HeaderSwitch from "../components/header/HeaderSwitch";
+import TrackingToggle from "../components/header/TrackingToggle";
 import HeaderTitle from "../components/header/HeaderTitle";
+import TrackingScreen from "../screens/TrackingScreen";
 
 const config = Platform.select({
   web: { headerMode: "screen" },
@@ -35,7 +36,8 @@ CalendarStack.path = "";
 
 const SummaryStack = createStackNavigator(
   {
-    Summary: SummaryScreen
+    Summary: SummaryScreen,
+    Tracking: TrackingScreen
   },
   config
 );
@@ -76,7 +78,7 @@ const tabNavigator = createBottomTabNavigator(
     initialRouteName: "SummaryStack",
     defaultNavigationOptions: {
       headerTitle: <HeaderTitle />,
-      headerRight: <HeaderSwitch />,
+      headerRight: <TrackingToggle />,
       headerStyle: {
         style: { shadowColor: "transparent", fontFamily: "monospace" }
       }
