@@ -2,7 +2,8 @@ import React from "react";
 import { Platform } from "react-native";
 import {
   createStackNavigator,
-  createBottomTabNavigator
+  createBottomTabNavigator,
+  createMaterialTopTabNavigator
 } from "react-navigation";
 
 import TabBarIcon from "../components/TabBarIcon";
@@ -26,7 +27,7 @@ const CalendarStack = createStackNavigator(
 );
 
 CalendarStack.navigationOptions = {
-  tabBarLabel: "Past Parties",
+  tabBarLabel: "Blackouts",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -72,7 +73,7 @@ SettingsStack.navigationOptions = {
 
 SettingsStack.path = "";
 
-const tabNavigator = createBottomTabNavigator(
+const tabNavigator = createMaterialTopTabNavigator(
   {
     CalendarStack,
     SummaryStack,
@@ -81,15 +82,26 @@ const tabNavigator = createBottomTabNavigator(
   {
     initialRouteName: "SummaryStack",
     defaultNavigationOptions: {
-      headerTitle: <HeaderTitle />,
+      headerTitle: <HeaderTitle title="Blackout" />,
       headerRight: <TrackingToggle />,
       headerStyle: {
         style: { shadowColor: "transparent", fontFamily: "monospace" }
       }
     },
     tabBarOptions: {
-      activeTintColor: "black"
-    }
+      activeTintColor: "black",
+      showIcon: true,
+      showLabel: true,
+      inactiveBackgroundColor: "#fff",
+      activeBackgroundColor: "#fff",
+      style: {
+        backgroundColor: "#fff"
+      },
+      indicatorStyle: {
+        width: 0
+      }
+    },
+    tabBarPosition: "bottom"
   }
 );
 

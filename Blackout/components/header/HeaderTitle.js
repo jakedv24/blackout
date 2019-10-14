@@ -6,7 +6,7 @@ class HeaderTitle extends Component {
   render() {
     return (
       <View style={styles.headerWrapper}>
-        <Text style={styles.headerText}>Blackout</Text>
+        <Text style={styles.headerText}>{this.props.text}</Text>
       </View>
     );
   }

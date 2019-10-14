@@ -12,7 +12,7 @@ import { material, systemWeights } from "react-native-typography";
 class SummaryScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      headerTitle: <HeaderTitle />,
+      headerTitle: <HeaderTitle text="Blackout" />,
       headerRight: <TrackingToggle navigation={navigation} />,
       headerStyle: {
         style: { shadowColor: "transparent", fontFamily: "monospace" }

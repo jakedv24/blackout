@@ -1,27 +1,30 @@
-import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
+import React, { Component } from "react";
+import { ScrollView, StyleSheet } from "react-native";
+import HeaderTitle from "../components/header/HeaderTitle";
+import TrackingToggle from "../components/header/TrackingToggle";
 
-export default function LinksScreen() {
-  return (
-    <ScrollView style={styles.container}>
-      {/**
-       * Go ahead and delete ExpoLinksView and replace it with your content;
-       * we just wanted to provide you with some helpful links.
-       */}
-      <ExpoLinksView />
-    </ScrollView>
-  );
+class LinksScreen extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerTitle: <HeaderTitle text="Past Blackouts" />,
+      headerStyle: {
+        style: { shadowColor: "transparent", fontFamily: "monospace" }
+      }
+    };
+  };
+
+  state = {};
+  render() {
+    return <ScrollView style={styles.container}></ScrollView>;
+  }
 }
 
-LinksScreen.navigationOptions = {
-  title: 'Links',
-};
+export default LinksScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: '#fff',
-  },
+    backgroundColor: "#fff"
+  }
 });
