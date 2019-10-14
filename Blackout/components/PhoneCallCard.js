@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import CardWrapper from "./CardWrapper";
 
 class PhoneCallCard extends Component {
   state = {};
   render() {
     const { contact, startTime, callLength, placed } = this.props;
     return (
-      <View style={styles.cardWrapper}>
+      <CardWrapper>
         <View style={styles.contentWrapper}>
           <View style={styles.iconWrapper}>
             <Ionicons
@@ -26,7 +27,7 @@ class PhoneCallCard extends Component {
             </View>
           </View>
         </View>
-      </View>
+      </CardWrapper>
     );
   }
 }
@@ -34,21 +35,6 @@ class PhoneCallCard extends Component {
 export default PhoneCallCard;
 
 const styles = StyleSheet.create({
-  cardWrapper: {
-    padding: 15,
-    flex: 1,
-    width: 150,
-    borderRadius: 6,
-    borderWidth: 1,
-    backgroundColor: "#ffff",
-    borderColor: "#ddd",
-    shadowColor: "#000",
-    shadowOpacity: 0.8,
-    shadowRadius: 6,
-    elevation: 1,
-    marginVertical: 10,
-    marginHorizontal: 10
-  },
   contentWrapper: {
     flex: 1,
     flexDirection: "row"
