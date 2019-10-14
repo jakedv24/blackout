@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { StyleSheet } from "react-native";
 import { Switch } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { stopTracking, startTracking } from "../../repositories/DataRepository";
@@ -33,7 +34,11 @@ class TrackingToggle extends Component {
 
   render() {
     return (
-      <Switch onValueChange={this.valueDidChange} value={this.props.tracking} />
+      <Switch
+        style={styles.switch}
+        onValueChange={this.valueDidChange}
+        value={this.props.tracking}
+      />
     );
   }
 }
@@ -71,3 +76,9 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(TrackingToggle);
+
+const styles = StyleSheet.create({
+  switch: {
+    marginRight: 10
+  }
+});
