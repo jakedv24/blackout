@@ -52,14 +52,6 @@ class SummaryScreen extends Component {
           contentContainerStyle={styles.contentContainer}
         >
           <PhoneCallSummary />
-          <PhoneCallSummary />
-
-          <PhoneCallSummary />
-
-          <PhoneCallSummary />
-          <PhoneCallSummary />
-
-          <PhoneCallSummary />
         </ScrollView>
       </View>
     );
