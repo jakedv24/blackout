@@ -3,10 +3,6 @@ import { Switch } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { stopTracking, startTracking } from "../../repositories/DataRepository";
 import { getLastSavedData } from "../../repositories/DataRepository";
-import {
-  START_TRACKING_MODAL,
-  STOP_TRACKING_MODAL
-} from "../../constants/Modals";
 
 class TrackingToggle extends Component {
   state = {
@@ -31,14 +27,9 @@ class TrackingToggle extends Component {
     }
   };
 
-  animateStartTracking = () => {
-    // this.props.navigation.navigate("Tracking");
-    // this.props.presentModal(START_TRACKING_MODAL);
-  };
+  animateStartTracking = () => {};
 
-  animateStopTracking = () => {
-    // this.props.presentModal(STOP_TRACKING_MODAL);
-  };
+  animateStopTracking = () => {};
 
   render() {
     return (

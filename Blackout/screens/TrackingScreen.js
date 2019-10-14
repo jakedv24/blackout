@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Animated } from "react-native";
 import { TRACKING_STRING } from "../constants/FunnyString";
+import { material, systemWeights } from "react-native-typography";
 
 let timeInterval;
 
 class TrackingScreen extends Component {
   state = {
-    trackingString: "Started Tracking",
+    trackingString: "Started tracking you",
     fadeAnimation: new Animated.Value(1)
   };
 
@@ -64,10 +65,11 @@ const styles = StyleSheet.create({
   loadingTextWrapper: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
     paddingHorizontal: 35
   },
   loadingText: {
-    fontSize: 36
+    ...material.display3,
+    ...systemWeights.regular,
+    lineHeight: 75
   }
 });

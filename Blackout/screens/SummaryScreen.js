@@ -7,6 +7,7 @@ import TrackingToggle from "../components/header/TrackingToggle";
 import { getLastSavedData } from "../repositories/DataRepository";
 import { formatDateRangeFromMillis } from "../utils/DateUtils";
 import TrackingScreen from "./TrackingScreen";
+import { material, systemWeights } from "react-native-typography";
 
 class SummaryScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -39,15 +40,25 @@ class SummaryScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.dateRange}>
-          {startTime !== null &&
-            endTime !== null &&
-            this.getDateRangeString(startTime, endTime)}
-        </Text>
+        <View style={styles.dateRangeWrapper}>
+          <Text style={styles.dateRange}>
+            {startTime !== null &&
+              endTime !== null &&
+              this.getDateRangeString(startTime, endTime)}
+          </Text>
+        </View>
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
+          <PhoneCallSummary />
+          <PhoneCallSummary />
+
+          <PhoneCallSummary />
+
+          <PhoneCallSummary />
+          <PhoneCallSummary />
+
           <PhoneCallSummary />
         </ScrollView>
       </View>
@@ -84,12 +95,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff"
   },
-  contentContainer: {
-    paddingTop: 10
+  contentContainer: {},
+  dateRangeWrapper: {
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+    borderBottomWidth: StyleSheet.hairlineWidth
   },
   dateRange: {
-    fontSize: 24,
-    marginLeft: 15,
-    marginTop: 10
+    ...material.display1,
+    ...systemWeights.thin,
+    fontSize: 22
   }
 });
