@@ -28,7 +28,11 @@ const CalendarStack = createStackNavigator(
 CalendarStack.navigationOptions = {
   tabBarLabel: "Past Parties",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={"md-calendar"} />
+    <TabBarIcon
+      focused={focused}
+      name={"md-calendar"}
+      activeTintColor={focused ? "red" : "green"}
+    />
   )
 };
 
@@ -82,6 +86,9 @@ const tabNavigator = createBottomTabNavigator(
       headerStyle: {
         style: { shadowColor: "transparent", fontFamily: "monospace" }
       }
+    },
+    tabBarOptions: {
+      activeTintColor: "black"
     }
   }
 );
