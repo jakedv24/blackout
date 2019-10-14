@@ -8,8 +8,28 @@ export const reducer = (state = {}, action) => {
         data: payload.data
       };
 
-      return state;
+      break;
+    case "CHANGE_MODAL":
+      state = {
+        ...state,
+        modal: payload.modal
+      };
 
+      break;
+    case "DISMISS_MODAL":
+      state = {
+        ...state,
+        modal: null
+      };
+
+      break;
+    case "CHANGE_TRACKING":
+      state = {
+        ...state,
+        tracking: payload.tracking
+      };
+
+      break;
     default:
       break;
   }

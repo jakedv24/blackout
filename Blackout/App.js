@@ -10,6 +10,7 @@ import { SafeAreaView } from "react-navigation";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { reducer } from "./reducers/reducer";
+import ModalPresenter from "./screens/ModalPresenter";
 
 const store = createStore(reducer);
 store.subscribe(() => {});
@@ -32,6 +33,7 @@ export default function App(props) {
           <StatusBar hidden />
           <View style={styles.container}>
             {Platform.OS === "ios" && <StatusBar barStyle="default" />}
+            <ModalPresenter />
             <AppNavigator />
           </View>
         </SafeAreaView>
