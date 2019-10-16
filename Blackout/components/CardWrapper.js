@@ -4,7 +4,7 @@ import { View, StyleSheet } from "react-native";
 class CardWrapper extends Component {
   render() {
     return (
-      <View style={{ ...styles.cardWrapper, ...this.props.styles }}>
+      <View style={{ ...styles.cardWrapper, ...this.props.style }}>
         {this.props.children}
       </View>
     );

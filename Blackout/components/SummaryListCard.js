@@ -40,7 +40,7 @@ class SummaryListCard extends Component {
         style={styles.touchable}
         onPress={() => {
           getSavedDataForStartTime(summary.startTime, this.props.loadLastData);
-          this.props.navigation.navigate("Summary");
+          this.props.navigation.navigate("Summary", { previous: true });
         }}
         activeOpacity={0.5}
       >

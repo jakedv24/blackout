@@ -34,6 +34,7 @@ class SummaryScreen extends Component {
 
   render() {
     let { startTime, endTime } = this.props;
+
     if (this.props.tracking) {
       return <TrackingScreen />;
     }
