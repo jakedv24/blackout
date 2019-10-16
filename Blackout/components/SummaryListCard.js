@@ -60,9 +60,9 @@ class SummaryListCard extends Component {
             </View>
             <HorizontalRule />
             <View style={styles.allValuesWrapper}>
-              <ValueWrapper
-                text={summary.numCalls ? `${summary.numCalls} Calls` : ""}
-              />
+              {summary.numCalls && (
+                <ValueWrapper text={`${summary.numCalls} Calls`} />
+              )}
             </View>
           </View>
         </CardWrapper>
