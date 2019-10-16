@@ -31,7 +31,9 @@ class CalendarScreen extends Component {
       <FlatList
         data={summaries}
         numColumns={1}
-        renderItem={({ item }) => <SummaryListCard summary={item} />}
+        renderItem={({ item }) => (
+          <SummaryListCard summary={item} navigation={this.props.navigation} />
+        )}
         keyExtractor={item => item.startTime}
       />
     );

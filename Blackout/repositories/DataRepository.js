@@ -50,6 +50,12 @@ export function getLastSavedData() {
   });
 }
 
+export async function getSavedDataForStartTime(startTime, callback) {
+  let savedData = await AsyncStorage.getItem(startTime);
+
+  callback(savedData ? JSON.parse(savedData) : {});
+}
+
 export function startTracking() {
   const now = new Date();
   AsyncStorage.setItem(trackingKey, "true");

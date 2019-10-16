@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import CardWrapper from "./CardWrapper";
 import {
-  formatDateRangeFromMillis,
   formatDateStringFromMillis,
   formatTimeStringFromMillis
 } from "../utils/DateUtils";
 import HorizontalRule from "./HorizontalRule";
 import { material, systemWeights } from "react-native-typography";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { getSavedDataForStartTime } from "../repositories/DataRepository";
+import { connect } from "react-redux";
 
 const ValueWrapper = props => {
   return (
@@ -34,38 +36,66 @@ class SummaryListCard extends Component {
     let { summary } = this.props;
 
     return (
-      <CardWrapper>
-        <View style={styles.contentWrapper}>
-          <View style={styles.dateRangeWrapper}>
-            <View>
-              <Text style={styles.dateRange}>
-                {this.getDateRangeString(summary.startTime)}
-              </Text>
+      <TouchableOpacity
+        style={styles.touchable}
+        onPress={() => {
+          getSavedDataForStartTime(summary.startTime, this.props.loadLastData);
+          this.props.navigation.navigate("Summary");
+        }}
+        activeOpacity={0.5}
+      >
+        <CardWrapper>
+          <View style={styles.contentWrapper}>
+            <View style={styles.dateRangeWrapper}>
+              <View>
+                <Text style={styles.dateRange}>
+                  {this.getDateRangeString(summary.startTime)}
+                </Text>
+              </View>
+              <View>
+                <Text style={styles.dateRange}>
+                  {this.getTimeRangeString(summary.startTime, summary.endTime)}
+                </Text>
+              </View>
             </View>
-            <View>
-              <Text style={styles.dateRange}>
-                {this.getTimeRangeString(summary.startTime, summary.endTime)}
-              </Text>
+            <HorizontalRule />
+            <View style={styles.allValuesWrapper}>
+              <ValueWrapper
+                text={summary.numCalls ? `${summary.numCalls} Calls` : ""}
+              />
             </View>
           </View>
-          <HorizontalRule />
-          <View style={styles.allValuesWrapper}>
-            <ValueWrapper
-              text={summary.numCalls ? `${summary.numCalls} Calls` : ""}
-            />
-          </View>
-        </View>
-      </CardWrapper>
+        </CardWrapper>
+      </TouchableOpacity>
     );
   }
 }
 
-export default SummaryListCard;
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loadLastData: data => {
+      dispatch({
+        type: "LOAD_LAST_DATA",
+        payload: { data }
+      });
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SummaryListCard);
 
 const styles = StyleSheet.create({
   contentWrapper: {
     flex: 1
   },
+  touchable: {},
   dateRangeWrapper: {
     flex: 1,
     flexDirection: "row",
