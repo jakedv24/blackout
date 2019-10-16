@@ -36,15 +36,18 @@ class SummaryListCard extends Component {
     let { summary } = this.props;
 
     return (
-      <TouchableOpacity
-        style={styles.touchable}
-        onPress={() => {
-          getSavedDataForStartTime(summary.startTime, this.props.loadLastData);
-          this.props.navigation.navigate("Summary", { previous: true });
-        }}
-        activeOpacity={0.5}
-      >
-        <CardWrapper>
+      <CardWrapper>
+        <TouchableOpacity
+          style={styles.touchable}
+          onPress={() => {
+            getSavedDataForStartTime(
+              summary.startTime,
+              this.props.loadLastData
+            );
+            this.props.navigation.navigate("Summary", { previous: true });
+          }}
+          activeOpacity={0.5}
+        >
           <View style={styles.contentWrapper}>
             <View style={styles.dateRangeWrapper}>
               <View>
@@ -65,8 +68,8 @@ class SummaryListCard extends Component {
               )}
             </View>
           </View>
-        </CardWrapper>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </CardWrapper>
     );
   }
 }
