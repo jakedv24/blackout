@@ -98,7 +98,7 @@ const tabNavigator = createMaterialTopTabNavigator(
         backgroundColor: "#fff"
       },
       indicatorStyle: {
-        width: 0
+        backgroundColor: "black"
       }
     },
     tabBarPosition: "bottom"

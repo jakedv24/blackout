@@ -19,8 +19,18 @@ export function getLastSavedData() {
           if (element.startTime > maxStartTime) {
             maxStartTime = element.startTime;
           }
+
+          if (!element.numCalls) {
+            element.numCalls = getCallsForTimePeriod(
+              element.startTime,
+              element.endTime
+            ).length;
+          }
+
+          return element;
         });
 
+        AsyncStorage.setItem(summariesKey, JSON.stringify(summaries));
         AsyncStorage.getItem(maxStartTime)
           .then(data => {
             // TODO: import libraries to access call log, messages, photos, etc.
@@ -38,11 +48,6 @@ export function getLastSavedData() {
       })
       .catch(err => console.log(err));
   });
-}
-
-export function getDataForStartTime(startTime) {
-  // TODO implement storage on device
-  return DATA.find(elt => elt.startTime == startTime);
 }
 
 export function startTracking() {

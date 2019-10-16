@@ -30,6 +30,7 @@ class CalendarScreen extends Component {
     return (
       <FlatList
         data={summaries}
+        numColumns={1}
         renderItem={({ item }) => <SummaryListCard summary={item} />}
         keyExtractor={item => item.startTime}
       />
