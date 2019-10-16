@@ -9,6 +9,13 @@ export const reducer = (state = {}, action) => {
       };
 
       break;
+    case "LOAD_SUMMARIES":
+      state = {
+        ...state,
+        summaries: payload.summaries
+      };
+
+      break;
     case "CHANGE_MODAL":
       state = {
         ...state,

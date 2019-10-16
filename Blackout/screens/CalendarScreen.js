@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import HeaderTitle from "../components/header/HeaderTitle";
-import TrackingToggle from "../components/header/TrackingToggle";
+import { getAllSummaries } from "../repositories/DataRepository";
+import { connect } from "react-redux";
+import { FlatList } from "react-native-gesture-handler";
+import SummaryListCard from "../components/SummaryListCard";
 
-class LinksScreen extends Component {
+class CalendarScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: <HeaderTitle text="Past Blackouts" />,
@@ -14,12 +17,51 @@ class LinksScreen extends Component {
   };
 
   state = {};
+
+  componentDidMount() {
+    getAllSummaries(summaries => {
+      this.props.loadSummaries(summaries);
+    });
+  }
+
+  getSummariesContent = () => {
+    const { summaries } = this.props;
+
+    return (
+      <FlatList
+        data={summaries}
+        renderItem={({ item }) => <SummaryListCard summary={item} />}
+        keyExtractor={item => item.startTime}
+      />
+    );
+  };
+
   render() {
-    return <ScrollView style={styles.container}></ScrollView>;
+    return <View style={styles.containers}>{this.getSummariesContent()}</View>;
   }
 }
 
-export default LinksScreen;
+const mapStateToProps = state => {
+  return {
+    summaries: state.summaries ? state.summaries : []
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loadSummaries: summaries => {
+      dispatch({
+        type: "LOAD_SUMMARIES",
+        payload: { summaries }
+      });
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CalendarScreen);
 
 const styles = StyleSheet.create({
   container: {
