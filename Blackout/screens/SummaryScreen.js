@@ -12,7 +12,7 @@ import { material, systemWeights } from "react-native-typography";
 class SummaryScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      headerTitle: <HeaderTitle />,
+      headerTitle: <HeaderTitle text="Blackout" />,
       headerRight: <TrackingToggle navigation={navigation} />,
       headerStyle: {
         style: { shadowColor: "transparent", fontFamily: "monospace" }
@@ -34,8 +34,9 @@ class SummaryScreen extends Component {
 
   render() {
     let { startTime, endTime } = this.props;
+
     if (this.props.tracking) {
-      return <TrackingScreen></TrackingScreen>;
+      return <TrackingScreen />;
     }
 
     return (

@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import { Switch } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { stopTracking, startTracking } from "../../repositories/DataRepository";
+import {
+  stopTracking,
+  startTracking,
+  getAllSummaries
+} from "../../repositories/DataRepository";
 import { getLastSavedData } from "../../repositories/DataRepository";
 
 class TrackingToggle extends Component {
@@ -22,6 +26,7 @@ class TrackingToggle extends Component {
           .then(data => {
             this.props.loadLastData(data);
             this.animateStopTracking();
+            getAllSummaries(summaries => this.props.loadSummaries(summaries));
           })
           .catch(err => console.log(err));
       });
@@ -67,6 +72,12 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: "LOAD_LAST_DATA",
         payload: { data }
+      });
+    },
+    loadSummaries: summaries => {
+      dispatch({
+        type: "LOAD_SUMMARIES",
+        payload: { summaries }
       });
     }
   };

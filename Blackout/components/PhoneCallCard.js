@@ -8,7 +8,7 @@ class PhoneCallCard extends Component {
   render() {
     const { contact, startTime, callLength, placed } = this.props;
     return (
-      <CardWrapper>
+      <CardWrapper style={styles.cardWrapper}>
         <View style={styles.contentWrapper}>
           <View style={styles.iconWrapper}>
             <Ionicons
@@ -35,6 +35,9 @@ class PhoneCallCard extends Component {
 export default PhoneCallCard;
 
 const styles = StyleSheet.create({
+  cardWrapper: {
+    width: 150
+  },
   contentWrapper: {
     flex: 1,
     flexDirection: "row"

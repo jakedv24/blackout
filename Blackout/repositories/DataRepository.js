@@ -2,6 +2,7 @@ import { AsyncStorage } from "react-native";
 import { getCallsForTimePeriod } from "./CallRepository";
 
 const summariesKey = "summaries";
+const trackingKey = "tracking";
 
 export function getLastSavedData() {
   return new Promise((resolve, reject) => {
@@ -18,8 +19,18 @@ export function getLastSavedData() {
           if (element.startTime > maxStartTime) {
             maxStartTime = element.startTime;
           }
+
+          if (!element.numCalls) {
+            element.numCalls = getCallsForTimePeriod(
+              element.startTime,
+              element.endTime
+            ).length;
+          }
+
+          return element;
         });
 
+        AsyncStorage.setItem(summariesKey, JSON.stringify(summaries));
         AsyncStorage.getItem(maxStartTime)
           .then(data => {
             // TODO: import libraries to access call log, messages, photos, etc.
@@ -39,24 +50,25 @@ export function getLastSavedData() {
   });
 }
 
-export function getDataForStartTime(startTime) {
-  // TODO implement storage on device
-  return DATA.find(elt => elt.startTime == startTime);
+export async function getSavedDataForStartTime(startTime, callback) {
+  let savedData = await AsyncStorage.getItem(startTime);
+
+  callback(savedData ? JSON.parse(savedData) : {});
 }
 
 export function startTracking() {
   const now = new Date();
-  AsyncStorage.setItem("tracking", "true");
+  AsyncStorage.setItem(trackingKey, "true");
   AsyncStorage.setItem("currentStartTime", now.getTime().toString());
 }
 
 export async function stopTracking(callback) {
-  const trackString = await AsyncStorage.getItem("tracking");
+  const trackString = await AsyncStorage.getItem(trackingKey);
   const tracking = trackString === "true";
 
   if (tracking) {
     const now = new Date();
-    AsyncStorage.setItem("tracking", "false");
+    AsyncStorage.setItem(trackingKey, "false");
     const startTime = await AsyncStorage.getItem("currentStartTime");
     const endTime = now.getTime();
 
@@ -70,16 +82,22 @@ export async function stopTracking(callback) {
       endTime
     };
 
-    await AsyncStorage.removeItem(summariesKey);
     let summaries = await AsyncStorage.getItem(summariesKey);
     if (summaries) {
       summaries = JSON.parse(summaries);
       summaries.push(newSummary);
     } else {
-      AsyncStorage.setItem(summariesKey, JSON.stringify([newSummary]));
+      summaries = [newSummary];
     }
-    await AsyncStorage.setItem(startTime, JSON.stringify(newData));
 
+    await AsyncStorage.setItem(summariesKey, JSON.stringify(summaries));
+    await AsyncStorage.setItem(startTime, JSON.stringify(newData));
     callback();
   }
+}
+
+export async function getAllSummaries(callback) {
+  let summaries = await AsyncStorage.getItem(summariesKey);
+
+  callback(summaries ? JSON.parse(summaries) : []);
 }
