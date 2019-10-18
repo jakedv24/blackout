@@ -1,5 +1,6 @@
 import { AsyncStorage } from "react-native";
 import { getCallsForTimePeriod } from "./CallRepository";
+import { getLocationsForStartAndEndTime } from "./LocationRepository";
 
 const summariesKey = "summaries";
 const trackingKey = "tracking";
@@ -39,6 +40,11 @@ export function getLastSavedData() {
             if (!data.calls) {
               const calls = getCallsForTimePeriod(data.startTime, data.endTime);
               data.calls = calls;
+              const locations = getLocationsForStartAndEndTime(
+                data.startTime,
+                data.endTime
+              );
+              data.locations = locations;
               AsyncStorage.setItem(maxStartTime, JSON.stringify(data));
             }
 
