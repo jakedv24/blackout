@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Text } from "react-native";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Polyline } from "react-native-maps";
 import SummarySection from "./SummarySection";
 import { connect } from "react-redux";
-import { Dimensions } from "react-native";
+
+const MAP_DELTA = 0.0005;
 
 class LocationSummary extends Component {
   state = {};
@@ -33,11 +34,26 @@ class LocationSummary extends Component {
     let viewBox = {
       latitude: (maxLat + minLat) / 2,
       longitude: (maxLon + minLon) / 2,
-      latitudeDelta: maxLat - minLat + 0.0001,
-      longitudeDelta: maxLon - minLon + 0.0001
+      latitudeDelta: maxLat - minLat + MAP_DELTA,
+      longitudeDelta: maxLon - minLon + MAP_DELTA
     };
 
     return viewBox;
+  };
+
+  convertCoordinatesForDisplay = () => {
+    let { locations } = this.props;
+
+    locations = locations.map(coord => {
+      let newCoord = {
+        latitude: coord.lat,
+        longitude: coord.lon
+      };
+
+      return newCoord;
+    });
+
+    return locations;
   };
 
   getLocationHistoryDistance = () => {
@@ -57,23 +73,31 @@ class LocationSummary extends Component {
 
     return (
       <View style={styles.container}>
-        <MapView
-          style={styles.mapStyle}
-          provider={PROVIDER_GOOGLE}
-          showsUserLocation
-          initialRegion={this.calculateViewableRegion()}
-          scrollEnabled={false}
-        />
+        <View style={styles.mapContainer}>
+          <MapView
+            style={StyleSheet.absoluteFillObject}
+            provider={PROVIDER_GOOGLE}
+            showsUserLocation
+            initialRegion={this.calculateViewableRegion()}
+            scrollEnabled={false}
+          >
+            <Polyline
+              key={0}
+              coordinates={this.convertCoordinatesForDisplay()}
+              strokeColor="#000"
+              fillColor="rgba(255,0,0,0.5)"
+              strokeWidth={6}
+            />
+          </MapView>
+        </View>
       </View>
     );
   };
 
   render() {
-    console.warn(window.height);
-
     return (
       <SummarySection
-        sectionTitle="Location History"
+        sectionTitle="Miles"
         numItems={this.getLocationHistoryDistance()}
         content={this.getLocationSummaryContent()}
       />
@@ -103,8 +127,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
+  mapContainer: {
+    flex: 1,
+    height: 210, // you can customize this
+    width: "100%", // you can customize this
+    alignItems: "center"
+  },
   mapStyle: {
-    width: Dimensions.get("window").width - 30,
-    height: 200
+    ...StyleSheet.absoluteFillObject
   }
 });
