@@ -8,6 +8,7 @@ import { getLastSavedData } from "../repositories/DataRepository";
 import { formatDateRangeFromMillis } from "../utils/DateUtils";
 import TrackingScreen from "./TrackingScreen";
 import { material, systemWeights } from "react-native-typography";
+import LocationSummary from "../components/LocationSummary";
 
 class SummaryScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -53,6 +54,7 @@ class SummaryScreen extends Component {
           contentContainerStyle={styles.contentContainer}
         >
           <PhoneCallSummary />
+          <LocationSummary />
         </ScrollView>
       </View>
     );
