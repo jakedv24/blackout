@@ -30,16 +30,12 @@ class LocationSummary extends Component {
       }
     });
 
-    console.warn(maxLon, minLon);
-
     let viewBox = {
       latitude: (maxLat + minLat) / 2,
       longitude: (maxLon + minLon) / 2,
       latitudeDelta: maxLat - minLat + 0.0001,
       longitudeDelta: maxLon - minLon + 0.0001
     };
-
-    console.warn(viewBox);
 
     return viewBox;
   };
