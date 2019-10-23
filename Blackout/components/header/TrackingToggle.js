@@ -22,13 +22,11 @@ class TrackingToggle extends Component {
       this.animateStartTracking();
     } else {
       stopTracking(() => {
-        getLastSavedData()
-          .then(data => {
-            this.props.loadLastData(data);
-            this.animateStopTracking();
-            getAllSummaries(summaries => this.props.loadSummaries(summaries));
-          })
-          .catch(err => console.log(err));
+        getLastSavedData(data => {
+          this.props.loadLastData(data);
+          this.animateStopTracking();
+          getAllSummaries(summaries => this.props.loadSummaries(summaries));
+        });
       });
     }
   };

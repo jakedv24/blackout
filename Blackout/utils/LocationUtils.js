@@ -1,6 +1,8 @@
 import haversine from "haversine";
 
 export const getDistanceFromCoordinates = coords => {
+  if (!coords) return 0;
+
   let totalDistance = 0;
 
   for (let i = 0; i < coords.length - 1; i++) {

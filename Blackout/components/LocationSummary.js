@@ -80,7 +80,7 @@ class LocationSummary extends Component {
             provider={PROVIDER_GOOGLE}
             showsUserLocation
             initialRegion={this.calculateViewableRegion()}
-            scrollEnabled={false}
+            scrollEnabled={true}
           >
             <Polyline
               key={0}
@@ -130,8 +130,8 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     flex: 1,
-    height: 210, // you can customize this
-    width: "100%", // you can customize this
+    height: 210,
+    width: "100%",
     alignItems: "center"
   },
   mapStyle: {

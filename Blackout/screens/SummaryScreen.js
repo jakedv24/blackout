@@ -9,6 +9,7 @@ import { formatDateRangeFromMillis } from "../utils/DateUtils";
 import TrackingScreen from "./TrackingScreen";
 import { material, systemWeights } from "react-native-typography";
 import LocationSummary from "../components/LocationSummary";
+import PhotoSummary from "../components/PhotoSummary";
 
 class SummaryScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -22,11 +23,7 @@ class SummaryScreen extends Component {
   };
 
   componentDidMount() {
-    getLastSavedData()
-      .then(data => {
-        this.props.loadLastData(data);
-      })
-      .catch(err => console.log(err));
+    getLastSavedData(data => this.props.loadLastData(data));
   }
 
   getDateRangeString = (startMillis, endMillis) => {
@@ -54,6 +51,7 @@ class SummaryScreen extends Component {
           contentContainerStyle={styles.contentContainer}
         >
           <PhoneCallSummary />
+          <PhotoSummary />
           <LocationSummary />
         </ScrollView>
       </View>
