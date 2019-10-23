@@ -1,6 +1,7 @@
 import { AsyncStorage } from "react-native";
 import { getCallsForTimePeriod } from "./CallRepository";
 import { getLocationsForStartAndEndTime } from "./LocationRepository";
+import { getDistanceFromCoordinates } from "../utils/LocationUtils";
 
 const summariesKey = "summaries";
 const trackingKey = "tracking";
@@ -26,6 +27,9 @@ export function getLastSavedData() {
               element.startTime,
               element.endTime
             ).length;
+            element.numMiles = getDistanceFromCoordinates(
+              getLocationsForStartAndEndTime(null, null)
+            );
           }
 
           return element;

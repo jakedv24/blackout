@@ -25,7 +25,8 @@ class CalendarScreen extends Component {
   }
 
   getSummariesContent = () => {
-    const { summaries } = this.props;
+    let { summaries } = this.props;
+    summaries = summaries.sort((a, b) => a.startTime < b.startTime);
 
     return (
       <FlatList

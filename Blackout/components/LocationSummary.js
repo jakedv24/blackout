@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Polyline } from "react-native-maps";
 import SummarySection from "./SummarySection";
 import { connect } from "react-redux";
+import { getDistanceFromCoordinates } from "../utils/LocationUtils";
 
 const MAP_DELTA = 0.0005;
 
@@ -57,7 +58,7 @@ class LocationSummary extends Component {
   };
 
   getLocationHistoryDistance = () => {
-    return 3.1;
+    return getDistanceFromCoordinates(this.props.locations);
   };
 
   getLocationSummaryContent = () => {

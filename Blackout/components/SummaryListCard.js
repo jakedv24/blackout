@@ -66,6 +66,9 @@ class SummaryListCard extends Component {
               {summary.numCalls && (
                 <ValueWrapper text={`${summary.numCalls} Calls`} />
               )}
+              {summary.numMiles && (
+                <ValueWrapper text={`${summary.numMiles} Miles`} />
+              )}
             </View>
           </View>
         </TouchableOpacity>
@@ -114,7 +117,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start"
   },
-  valueWrapper: {},
+  valueWrapper: {
+    marginHorizontal: 10
+  },
   value: {
     ...material.display1,
     ...systemWeights.light,
