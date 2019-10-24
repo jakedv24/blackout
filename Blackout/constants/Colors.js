@@ -10,5 +10,8 @@ export default {
   warningBackground: "#EAEB5E",
   warningText: "#666804",
   noticeBackground: tintColor,
-  noticeText: "#fff"
+  noticeText: "#fff",
+  dateRangeBackground: "#fff",
+  backgroundColor: "#f2f2f2",
+  white: "#fff"
 };

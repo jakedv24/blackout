@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, StyleSheet, Animated } from "react-native";
 import { TRACKING_STRING } from "../constants/FunnyString";
 import { material, systemWeights } from "react-native-typography";
+import Colors from "../constants/Colors";
 
 let timeInterval;
 
@@ -65,7 +66,8 @@ const styles = StyleSheet.create({
   loadingTextWrapper: {
     flex: 1,
     justifyContent: "center",
-    paddingHorizontal: 35
+    paddingHorizontal: 35,
+    backgroundColor: Colors.backgroundColor
   },
   loadingText: {
     ...material.display3,

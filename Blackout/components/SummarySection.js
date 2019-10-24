@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import HorizontalRule from "./HorizontalRule";
 import { material, systemWeights } from "react-native-typography";
+import Colors from "../constants/Colors";
 
 class SummarySection extends Component {
   state = {};
@@ -26,7 +27,7 @@ export default SummarySection;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffff"
+    backgroundColor: Colors.white
   },
   summaryContainer: {
     padding: 15,

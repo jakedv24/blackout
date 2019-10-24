@@ -10,6 +10,7 @@ import TrackingScreen from "./TrackingScreen";
 import { material, systemWeights } from "react-native-typography";
 import LocationSummary from "../components/LocationSummary";
 import PhotoSummary from "../components/PhotoSummary";
+import Colors from "../constants/Colors";
 
 class SummaryScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -86,14 +87,14 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f2f2f2"
+    backgroundColor: Colors.backgroundColor
   },
   contentContainer: {},
   dateRangeWrapper: {
     paddingHorizontal: 12,
     paddingVertical: 5,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    backgroundColor: "#fff"
+    backgroundColor: Colors.dateRangeBackground
   },
   dateRange: {
     ...material.display1,
