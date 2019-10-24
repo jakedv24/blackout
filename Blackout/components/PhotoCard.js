@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, Text } from "react-native";
+import { formatTimeStringFromMillis } from "../utils/DateUtils";
 
 // TODO remove when not mocking photos
 const mockPhoto = require("../repositories/mockImages/drunkPeople.jpg");
@@ -7,9 +8,14 @@ const mockPhoto = require("../repositories/mockImages/drunkPeople.jpg");
 class PhotoCard extends Component {
   state = {};
   render() {
+    const { photo } = this.props;
+
     return (
       <View style={styles.photoWrapper}>
         <Image style={styles.image} source={mockPhoto} />
+        <Text style={styles.timestamp}>
+          {formatTimeStringFromMillis(photo.timestamp)}
+        </Text>
       </View>
     );
   }
@@ -26,5 +32,13 @@ const styles = StyleSheet.create({
     height: 220,
     overflow: "hidden",
     borderRadius: 10
+  },
+  timestamp: {
+    flex: 1,
+    marginVertical: 5,
+    color: "grey",
+    fontSize: 12,
+    textAlign: "right",
+    marginRight: 3
   }
 });
