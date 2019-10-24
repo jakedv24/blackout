@@ -8,6 +8,7 @@ import {
   getAllSummaries
 } from "../../repositories/DataRepository";
 import { getLastSavedData } from "../../repositories/DataRepository";
+import { Notifications } from "expo";
 
 class TrackingToggle extends Component {
   state = {
@@ -33,9 +34,20 @@ class TrackingToggle extends Component {
     }
   };
 
-  animateStartTracking = () => {};
+  animateStartTracking = () => {
+    const notification = {
+      title: "Blackout - Tracking",
+      body: "We are tracking your every move...",
+      android: {
+        sticky: true
+      }
+    };
+    Notifications.presentLocalNotificationAsync(notification);
+  };
 
-  animateStopTracking = () => {};
+  animateStopTracking = () => {
+    Notifications.dismissAllNotificationsAsync();
+  };
 
   render() {
     return (
