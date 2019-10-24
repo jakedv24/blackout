@@ -86,13 +86,14 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "#f2f2f2"
   },
   contentContainer: {},
   dateRangeWrapper: {
     paddingHorizontal: 12,
     paddingVertical: 5,
-    borderBottomWidth: StyleSheet.hairlineWidth
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    backgroundColor: "#fff"
   },
   dateRange: {
     ...material.display1,
