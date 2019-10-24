@@ -20,7 +20,6 @@ class PhotoSummary extends Component {
 
   render() {
     const { photos } = this.props;
-    console.warn("photos", photos);
 
     return (
       <View>
