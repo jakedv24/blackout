@@ -3,9 +3,11 @@ import { getCallsForTimePeriod } from "./CallRepository";
 import { getLocationsForStartAndEndTime } from "./LocationRepository";
 import { getDistanceFromCoordinates } from "../utils/LocationUtils";
 import { getPhotosFromStartToEndTime } from "./PhotoRepository";
+import { getTextsForStartAndEndTime } from "./TextRepository";
 
 const summariesKey = "summaries";
 const trackingKey = "tracking";
+const startTimeKey = "currentStartTime";
 
 export async function getLastSavedData(callback) {
   let summaries = await AsyncStorage.getItem(summariesKey);
@@ -45,6 +47,12 @@ export async function getLastSavedData(callback) {
       );
     }
 
+    if (!element.numTexts) {
+      getTextsForStartAndEndTime(element.startTime, element.endTime, texts => {
+        element.numTexts = texts.length;
+      });
+    }
+
     return element;
   });
 
@@ -74,6 +82,14 @@ export async function getLastSavedData(callback) {
     );
   }
 
+  if (!data.texts) {
+    getTextsForStartAndEndTime(
+      data.startTime,
+      data.endTime,
+      texts => (data.texts = texts)
+    );
+  }
+
   await AsyncStorage.setItem(maxStartTime, JSON.stringify(data));
   callback(data);
 }
@@ -87,7 +103,7 @@ export async function getSavedDataForStartTime(startTime, callback) {
 export function startTracking() {
   const now = new Date();
   AsyncStorage.setItem(trackingKey, "true");
-  AsyncStorage.setItem("currentStartTime", now.getTime().toString());
+  AsyncStorage.setItem(startTimeKey, now.getTime().toString());
 }
 
 export async function stopTracking(callback) {
@@ -97,7 +113,7 @@ export async function stopTracking(callback) {
   if (tracking) {
     const now = new Date();
     AsyncStorage.setItem(trackingKey, "false");
-    const startTime = await AsyncStorage.getItem("currentStartTime");
+    const startTime = await AsyncStorage.getItem(startTimeKey);
     const endTime = now.getTime();
 
     const newData = {
