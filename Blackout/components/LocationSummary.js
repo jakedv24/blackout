@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Polyline } from "react-native-maps";
 import SummarySection from "./SummarySection";
 import { connect } from "react-redux";
+import { getDistanceFromCoordinates } from "../utils/LocationUtils";
 
 const MAP_DELTA = 0.0005;
 
@@ -57,7 +58,7 @@ class LocationSummary extends Component {
   };
 
   getLocationHistoryDistance = () => {
-    return 3.1;
+    return getDistanceFromCoordinates(this.props.locations);
   };
 
   getLocationSummaryContent = () => {
@@ -79,7 +80,7 @@ class LocationSummary extends Component {
             provider={PROVIDER_GOOGLE}
             showsUserLocation
             initialRegion={this.calculateViewableRegion()}
-            scrollEnabled={false}
+            scrollEnabled={true}
           >
             <Polyline
               key={0}
@@ -129,8 +130,8 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     flex: 1,
-    height: 210, // you can customize this
-    width: "100%", // you can customize this
+    height: 210,
+    width: "100%",
     alignItems: "center"
   },
   mapStyle: {

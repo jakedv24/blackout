@@ -1,59 +1,81 @@
 import { AsyncStorage } from "react-native";
 import { getCallsForTimePeriod } from "./CallRepository";
 import { getLocationsForStartAndEndTime } from "./LocationRepository";
+import { getDistanceFromCoordinates } from "../utils/LocationUtils";
+import { getPhotosFromStartToEndTime } from "./PhotoRepository";
 
 const summariesKey = "summaries";
 const trackingKey = "tracking";
 
-export function getLastSavedData() {
-  return new Promise((resolve, reject) => {
-    AsyncStorage.getItem(summariesKey)
-      .then(summaries => {
-        if (!summaries) {
-          resolve({});
+export async function getLastSavedData(callback) {
+  let summaries = await AsyncStorage.getItem(summariesKey);
+
+  if (!summaries) {
+    callback({});
+  }
+
+  summaries = JSON.parse(summaries);
+
+  let maxStartTime = 0;
+  summaries = summaries.map(element => {
+    if (element.startTime > maxStartTime) {
+      maxStartTime = element.startTime;
+    }
+
+    if (!element.numCalls) {
+      element.numCalls = getCallsForTimePeriod(
+        element.startTime,
+        element.endTime
+      ).length;
+    }
+
+    if (!element.numMiles) {
+      element.numMiles = getDistanceFromCoordinates(
+        getLocationsForStartAndEndTime(element.startTime, element.endTime)
+      );
+    }
+
+    if (!element.numPhotos) {
+      getPhotosFromStartToEndTime(
+        element.startTime,
+        element.endTime,
+        photos => {
+          element.numPhotos = photos.length;
         }
+      );
+    }
 
-        summaries = JSON.parse(summaries);
-
-        let maxStartTime = 0;
-        summaries.forEach(element => {
-          if (element.startTime > maxStartTime) {
-            maxStartTime = element.startTime;
-          }
-
-          if (!element.numCalls) {
-            element.numCalls = getCallsForTimePeriod(
-              element.startTime,
-              element.endTime
-            ).length;
-          }
-
-          return element;
-        });
-
-        AsyncStorage.setItem(summariesKey, JSON.stringify(summaries));
-        AsyncStorage.getItem(maxStartTime)
-          .then(data => {
-            // TODO: import libraries to access call log, messages, photos, etc.
-            // and append the information to the data object here
-            data = JSON.parse(data);
-            if (!data.calls) {
-              const calls = getCallsForTimePeriod(data.startTime, data.endTime);
-              data.calls = calls;
-              const locations = getLocationsForStartAndEndTime(
-                data.startTime,
-                data.endTime
-              );
-              data.locations = locations;
-              AsyncStorage.setItem(maxStartTime, JSON.stringify(data));
-            }
-
-            resolve(data);
-          })
-          .catch(err => console.log(err));
-      })
-      .catch(err => console.log(err));
+    return element;
   });
+
+  AsyncStorage.setItem(summariesKey, JSON.stringify(summaries));
+  let data = await AsyncStorage.getItem(maxStartTime);
+  // TODO: import libraries to access call log, messages, photos, etc.
+  // and append the information to the data object here
+  data = JSON.parse(data);
+  if (!data.calls) {
+    const calls = getCallsForTimePeriod(data.startTime, data.endTime);
+    data.calls = calls;
+  }
+
+  if (!data.locations) {
+    const locations = getLocationsForStartAndEndTime(
+      data.startTime,
+      data.endTime
+    );
+    data.locations = locations;
+  }
+
+  if (!data.photos) {
+    getPhotosFromStartToEndTime(
+      data.startTime,
+      data.endTime,
+      photos => (data.photos = photos)
+    );
+  }
+
+  await AsyncStorage.setItem(maxStartTime, JSON.stringify(data));
+  callback(data);
 }
 
 export async function getSavedDataForStartTime(startTime, callback) {

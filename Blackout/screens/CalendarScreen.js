@@ -5,6 +5,7 @@ import { getAllSummaries } from "../repositories/DataRepository";
 import { connect } from "react-redux";
 import { FlatList } from "react-native-gesture-handler";
 import SummaryListCard from "../components/SummaryListCard";
+import Colors from "../constants/Colors";
 
 class CalendarScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -25,7 +26,8 @@ class CalendarScreen extends Component {
   }
 
   getSummariesContent = () => {
-    const { summaries } = this.props;
+    let { summaries } = this.props;
+    summaries = summaries.sort((a, b) => a.startTime < b.startTime);
 
     return (
       <FlatList
@@ -40,7 +42,7 @@ class CalendarScreen extends Component {
   };
 
   render() {
-    return <View style={styles.containers}>{this.getSummariesContent()}</View>;
+    return <View style={styles.container}>{this.getSummariesContent()}</View>;
   }
 }
 
@@ -69,7 +71,6 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: "#fff"
+    backgroundColor: Colors.backgroundColor
   }
 });

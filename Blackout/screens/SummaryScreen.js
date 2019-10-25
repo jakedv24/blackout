@@ -9,6 +9,8 @@ import { formatDateRangeFromMillis } from "../utils/DateUtils";
 import TrackingScreen from "./TrackingScreen";
 import { material, systemWeights } from "react-native-typography";
 import LocationSummary from "../components/LocationSummary";
+import PhotoSummary from "../components/PhotoSummary";
+import Colors from "../constants/Colors";
 
 class SummaryScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -22,11 +24,7 @@ class SummaryScreen extends Component {
   };
 
   componentDidMount() {
-    getLastSavedData()
-      .then(data => {
-        this.props.loadLastData(data);
-      })
-      .catch(err => console.log(err));
+    getLastSavedData(data => this.props.loadLastData(data));
   }
 
   getDateRangeString = (startMillis, endMillis) => {
@@ -54,6 +52,7 @@ class SummaryScreen extends Component {
           contentContainerStyle={styles.contentContainer}
         >
           <PhoneCallSummary />
+          <PhotoSummary />
           <LocationSummary />
         </ScrollView>
       </View>
@@ -88,13 +87,14 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: Colors.backgroundColor
   },
   contentContainer: {},
   dateRangeWrapper: {
     paddingHorizontal: 12,
     paddingVertical: 5,
-    borderBottomWidth: StyleSheet.hairlineWidth
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    backgroundColor: Colors.dateRangeBackground
   },
   dateRange: {
     ...material.display1,
