@@ -7,7 +7,8 @@ import { formatTimeStringFromMillis } from "../utils/DateUtils";
 class TextMessagesCard extends Component {
   state = {};
   render() {
-    const { outgoing, contact, timestamp, message } = this.props;
+    const { contact, timestamp, message } = this.props;
+
     return (
       <CardWrapper style={styles.cardWrapper}>
         <View style={styles.contentWrapper}>
@@ -15,15 +16,17 @@ class TextMessagesCard extends Component {
             <Ionicons name="ios-text" size={32} />
           </View>
           <View style={styles.textWrapper}>
-            <Text style={styles.contactName} numberOfLines={1}>
-              {contact}
-            </Text>
             <View style={styles.subTextWrapper}>
-              <Text style={styles.subText}>{message}</Text>
-              <Text style={styles.subText}>
-                {formatTimeStringFromMillis(timestamp)}
+              <Text style={styles.contactName} numberOfLines={1}>
+                {contact}
               </Text>
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ flex: 1, flexWrap: "wrap" }}>
+                  {formatTimeStringFromMillis(timestamp)}
+                </Text>
+              </View>
             </View>
+            <Text style={styles.message}>{message}</Text>
           </View>
         </View>
       </CardWrapper>
@@ -35,7 +38,7 @@ export default TextMessagesCard;
 
 const styles = StyleSheet.create({
   cardWrapper: {
-    width: 150
+    flex: 1
   },
   contentWrapper: {
     flex: 1,
@@ -58,5 +61,9 @@ const styles = StyleSheet.create({
   subText: {
     color: "grey",
     fontSize: 12
+  },
+  message: {
+    flex: 1,
+    flexWrap: "wrap"
   }
 });

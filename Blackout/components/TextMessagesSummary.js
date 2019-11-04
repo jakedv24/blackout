@@ -15,10 +15,10 @@ class TextMessagesSummary extends Component {
         renderItem={({ item }) => (
           <TextMessagesCard
             style={styles.card}
-            outgoing={item.outgoing}
+            timestamp={item.timestamp}
             contact={item.contact}
             message={item.message}
-          ></TextMessagesCard>
+          />
         )}
         keyExtractor={item => item.timestamp + ""}
         horizontal
