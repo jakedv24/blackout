@@ -15,12 +15,12 @@ class TextMessagesSummary extends Component {
         renderItem={({ item }) => (
           <TextMessagesCard
             style={styles.card}
-            outgoing={item.outgoing}
-            to={item.to}
+            timestamp={item.timestamp}
+            contact={item.contact}
             message={item.message}
-          ></TextMessagesCard>
+          />
         )}
-        keyExtractor={item => item.startTime}
+        keyExtractor={item => item.timestamp + ""}
         horizontal
       />
     );
@@ -33,9 +33,9 @@ class TextMessagesSummary extends Component {
       <View>
         <SummarySection
           sectionTitle="Text Messages"
-          numItems={(texts ) || 0} // this is getting data from const texts?
+          numItems={texts ? texts.length : 0}
           content={this.getTextMessageContent()}
-        ></SummarySection>
+        />
       </View>
     );
   }

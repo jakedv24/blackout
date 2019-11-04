@@ -11,6 +11,7 @@ import { material, systemWeights } from "react-native-typography";
 import LocationSummary from "../components/LocationSummary";
 import PhotoSummary from "../components/PhotoSummary";
 import Colors from "../constants/Colors";
+import TextMessagesSummary from "../components/TextMessagesSummary";
 
 class SummaryScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -51,6 +52,7 @@ class SummaryScreen extends Component {
                 this.getDateRangeString(startTime, endTime)}
             </Text>
           </View>
+          <TextMessagesSummary />
           <PhoneCallSummary />
           <PhotoSummary />
           <LocationSummary />
