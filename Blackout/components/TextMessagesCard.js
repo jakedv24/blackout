@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import CardWrapper from "./CardWrapper";
+import { formatTimeStringFromMillis } from "../utils/DateUtils";
 
 class TextMessagesCard extends Component {
   state = {};
@@ -19,7 +20,9 @@ class TextMessagesCard extends Component {
             </Text>
             <View style={styles.subTextWrapper}>
               <Text style={styles.subText}>{message}</Text>
-              <Text style={styles.subText}>{timestamp}</Text>
+              <Text style={styles.subText}>
+                {formatTimeStringFromMillis(timestamp)}
+              </Text>
             </View>
           </View>
         </View>

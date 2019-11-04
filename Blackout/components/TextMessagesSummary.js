@@ -20,7 +20,7 @@ class TextMessagesSummary extends Component {
             message={item.message}
           ></TextMessagesCard>
         )}
-        keyExtractor={item => item.timestamp}
+        keyExtractor={item => item.timestamp + ""}
         horizontal
       />
     );
