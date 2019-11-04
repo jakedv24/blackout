@@ -6,20 +6,16 @@ import CardWrapper from "./CardWrapper";
 class TextMessagesCard extends Component {
   state = {};
   render() {
-    const { outgoing, to, timestamp, message } = this.props;
+    const { outgoing, contact, timestamp, message } = this.props;
     return (
       <CardWrapper style={styles.cardWrapper}>
         <View style={styles.contentWrapper}>
           <View style={styles.iconWrapper}>
-            <Ionicons
-              name="ios-text"
-              size={32}
-              
-            />
+            <Ionicons name="ios-text" size={32} />
           </View>
           <View style={styles.textWrapper}>
             <Text style={styles.contactName} numberOfLines={1}>
-              {to}
+              {contact}
             </Text>
             <View style={styles.subTextWrapper}>
               <Text style={styles.subText}>{message}</Text>

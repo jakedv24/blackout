@@ -16,11 +16,11 @@ class TextMessagesSummary extends Component {
           <TextMessagesCard
             style={styles.card}
             outgoing={item.outgoing}
-            to={item.to}
+            contact={item.contact}
             message={item.message}
           ></TextMessagesCard>
         )}
-        keyExtractor={item => item.startTime}
+        keyExtractor={item => item.timestamp}
         horizontal
       />
     );
@@ -33,7 +33,7 @@ class TextMessagesSummary extends Component {
       <View>
         <SummarySection
           sectionTitle="Text Messages"
-          numItems={(texts ) || 0} // this is getting data from const texts?
+          numItems={texts ? texts.length : 0} // this is the number of items in the texts array
           content={this.getTextMessageContent()}
         ></SummarySection>
       </View>
