@@ -33,9 +33,9 @@ class TextMessagesSummary extends Component {
       <View>
         <SummarySection
           sectionTitle="Text Messages"
-          numItems={texts ? texts.length : 0} // this is the number of items in the texts array
+          numItems={texts ? texts.length : 0}
           content={this.getTextMessageContent()}
-        ></SummarySection>
+        />
       </View>
     );
   }
