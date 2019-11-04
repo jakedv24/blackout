@@ -40,17 +40,17 @@ class SummaryScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.dateRangeWrapper}>
-          <Text style={styles.dateRange}>
-            {startTime !== null &&
-              endTime !== null &&
-              this.getDateRangeString(startTime, endTime)}
-          </Text>
-        </View>
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
+          <View style={styles.dateRangeWrapper}>
+            <Text style={styles.dateRange}>
+              {startTime !== null &&
+                endTime !== null &&
+                this.getDateRangeString(startTime, endTime)}
+            </Text>
+          </View>
           <PhoneCallSummary />
           <PhotoSummary />
           <LocationSummary />
