@@ -14,6 +14,7 @@ export async function getLastSavedData(callback) {
 
   if (!summaries) {
     callback({});
+    return;
   }
 
   summaries = JSON.parse(summaries);

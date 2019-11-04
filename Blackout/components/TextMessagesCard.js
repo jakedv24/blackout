@@ -10,26 +10,30 @@ class TextMessagesCard extends Component {
     const { contact, timestamp, message } = this.props;
 
     return (
-      <CardWrapper style={styles.cardWrapper}>
-        <View style={styles.contentWrapper}>
-          <View style={styles.iconWrapper}>
-            <Ionicons name="ios-text" size={32} />
-          </View>
-          <View style={styles.textWrapper}>
-            <View style={styles.subTextWrapper}>
-              <Text style={styles.contactName} numberOfLines={1}>
-                {contact}
-              </Text>
-              <View style={{ flexDirection: "row" }}>
-                <Text style={{ flex: 1, flexWrap: "wrap" }}>
-                  {formatTimeStringFromMillis(timestamp)}
+      <View>
+        <CardWrapper style={styles.cardWrapper}>
+          <View style={styles.contentWrapper}>
+            <View style={styles.iconWrapper}>
+              <Ionicons name="ios-text" size={32} />
+            </View>
+            <View style={styles.textWrapper}>
+              <View style={styles.titleWrapper}>
+                <Text style={styles.contactName}>{contact}</Text>
+                <View>
+                  <Text style={styles.subText}>
+                    {formatTimeStringFromMillis(timestamp)}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.messageWrapper}>
+                <Text style={styles.message} numberOfLines={5}>
+                  {message}
                 </Text>
               </View>
             </View>
-            <Text style={styles.message}>{message}</Text>
           </View>
-        </View>
-      </CardWrapper>
+        </CardWrapper>
+      </View>
     );
   }
 }
@@ -38,32 +42,36 @@ export default TextMessagesCard;
 
 const styles = StyleSheet.create({
   cardWrapper: {
-    flex: 1
+    flex: 0
   },
   contentWrapper: {
-    flex: 1,
-    flexDirection: "row"
+    flexDirection: "row",
+    alignSelf: "baseline"
   },
   iconWrapper: {},
   textWrapper: {
-    flex: 1,
     flexDirection: "column",
-    marginLeft: 10
+    alignContent: "flex-start",
+    marginLeft: 10,
+    minWidth: 60
   },
   contactName: {
     fontWeight: "bold"
   },
-  subTextWrapper: {
-    flex: 1,
+  titleWrapper: {
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    minWidth: 95
   },
   subText: {
     color: "grey",
     fontSize: 12
   },
   message: {
-    flex: 1,
     flexWrap: "wrap"
+  },
+  messageWrapper: {
+    maxWidth: 150,
+    flexDirection: "row"
   }
 });
