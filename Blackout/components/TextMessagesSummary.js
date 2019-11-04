@@ -2,22 +2,23 @@ import React, { Component } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import { connect } from "react-redux";
 import SummarySection from "./SummarySection";
-import PhoneCallCard from "./TextMessagesCard";
+import TextMessagesCard from "./TextMessagesCard";
 
-class PhoneCallSummary extends Component {
+class TextMessagesSummary extends Component {
   state = {};
 
   getTextMessageContent = () => {
-    const { calls } = this.props;
+    const { texts } = this.props;
     return (
       <FlatList
         data={texts}
         renderItem={({ item }) => (
-          <PhoneCallCard
+          <TextMessagesCard
             style={styles.card}
-            placed={item.placed}
-            contact={item.contact}
-          ></PhoneCallCard>
+            outgoing={item.outgoing}
+            to={item.to}
+            message={item.message}
+          ></TextMessagesCard>
         )}
         keyExtractor={item => item.startTime}
         horizontal
@@ -42,7 +43,7 @@ class PhoneCallSummary extends Component {
 
 const mapStateToProps = state => {
   return {
-    calls: state.data ? state.data.calls : []
+    texts: state.data ? state.data.texts : []
   };
 };
 
@@ -53,7 +54,7 @@ const mapDispatchToProps = () => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PhoneCallSummary);
+)(TextMessagesSummary);
 
 const styles = StyleSheet.create({
   container: {
