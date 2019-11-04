@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Platform } from "react-native";
+import { material, systemWeights } from "react-native-typography";
 
 class HeaderTitle extends Component {
   state = {};
@@ -19,7 +20,15 @@ const styles = StyleSheet.create({
     paddingLeft: 20
   },
   headerText: {
-    fontFamily: "sans-serif-thin",
+    ...Platform.select({
+      ios: {
+        ...material.HeaderTitle,
+        ...systemWeights.thin
+      },
+      android: {
+        fontFamily: "sans-serif-thin"
+      }
+    }),
     fontSize: 32,
     fontWeight: "200"
   }
