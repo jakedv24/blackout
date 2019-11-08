@@ -63,6 +63,9 @@ class SummaryListCard extends Component {
             </View>
             <HorizontalRule />
             <View style={styles.allValuesWrapper}>
+              {summary.numTexts && (
+                <ValueWrapper text={`${summary.numTexts} Texts`} />
+              )}
               {summary.numCalls && (
                 <ValueWrapper text={`${summary.numCalls} Calls`} />
               )}
