@@ -11,9 +11,14 @@ import { material, systemWeights } from "react-native-typography";
 import LocationSummary from "../components/LocationSummary";
 import PhotoSummary from "../components/PhotoSummary";
 import Colors from "../constants/Colors";
+import { AppLoading, SplashScreen } from "expo";
 import TextMessagesSummary from "../components/TextMessagesSummary";
 
 class SummaryScreen extends Component {
+  state = {
+    isSplashReady: false,
+    isAppReady: false
+  };
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: <HeaderTitle text="Blackout" />,
@@ -37,6 +42,26 @@ class SummaryScreen extends Component {
 
     if (this.props.tracking) {
       return <TrackingScreen />;
+    }
+    if (!this.state.isSplashReady) {
+      return (
+        <AppLoading
+          startAsync={this._cacheSplashResourcesAsync}
+          onFinish={() => this.setState({ isSplashReady: true })}
+          onError={console.warn}
+          autoHideSplash={false}
+        />
+      );
+    }
+    if (!this.state.isAppReady) {
+      return (
+        <View style={{ flex: 1 }}>
+          <Image
+            source={require("../screens/splashImages/splash.png")}
+            onLoad={this._cacheResourcesAsync}
+          />
+        </View>
+      );
     }
 
     return (
