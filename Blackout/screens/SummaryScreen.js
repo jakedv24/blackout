@@ -15,10 +15,6 @@ import { AppLoading, SplashScreen } from "expo";
 import TextMessagesSummary from "../components/TextMessagesSummary";
 
 class SummaryScreen extends Component {
-  state = {
-    isSplashReady: false,
-    isAppReady: false
-  };
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: <HeaderTitle text="Blackout" />,
