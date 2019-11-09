@@ -43,26 +43,6 @@ class SummaryScreen extends Component {
     if (this.props.tracking) {
       return <TrackingScreen />;
     }
-    if (!this.state.isSplashReady) {
-      return (
-        <AppLoading
-          startAsync={this._cacheSplashResourcesAsync}
-          onFinish={() => this.setState({ isSplashReady: true })}
-          onError={console.warn}
-          autoHideSplash={false}
-        />
-      );
-    }
-    if (!this.state.isAppReady) {
-      return (
-        <View style={{ flex: 1 }}>
-          <Image
-            source={require("../screens/splashImages/splash.png")}
-            onLoad={this._cacheResourcesAsync}
-          />
-        </View>
-      );
-    }
 
     return (
       <View style={styles.container}>
