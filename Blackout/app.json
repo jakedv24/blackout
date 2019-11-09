@@ -9,9 +9,9 @@
     "orientation": "portrait",
     "icon": "./assets/images/blackoutLogo.png",
     "splash": {
-      "image": "./assets/images/2.png",
+      "image": "./assets/images/splashCover.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#050404"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
