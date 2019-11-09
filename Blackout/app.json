@@ -7,9 +7,9 @@
     "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/robot-dev.png",
+    "icon": "./assets/images/blackoutLogo.png",
     "splash": {
-      "image": "./assets/images/robot-prod.png",
+      "image": "./assets/images/2.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
