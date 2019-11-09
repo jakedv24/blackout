@@ -12,15 +12,13 @@ import { createStore } from "redux";
 import { reducer } from "./reducers/reducer";
 import ModalPresenter from "./screens/ModalPresenter";
 
-import { AppLoading, SplashScreen } from "expo";
-
 const store = createStore(reducer);
 store.subscribe(() => {});
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
-  if (!props.skipLoadingScreen) {
+  if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
       <AppLoading
         startAsync={loadResourcesAsync}
@@ -29,14 +27,7 @@ export default function App(props) {
       />
     );
   } else if (!isLoadingComplete) {
-    return (
-      <View style={{ flex: 1 }}>
-        <Image
-          source={require("./assets/images/robot-prod.png")}
-          onLoad={this._cacheResourcesAsync}
-        />
-      </View>
-    );
+    return <SplashScreen />;
   } else {
     return (
       <Provider store={store}>

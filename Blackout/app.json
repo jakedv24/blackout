@@ -9,7 +9,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/robot-dev.png",
     "splash": {
-      "image": "./assets/images/splash copy.png",
+      "image": "./assets/images/robot-prod.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
