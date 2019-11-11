@@ -15,30 +15,29 @@ export async function getCallsForTimePeriod(startTime, endTime, callback) {
     );
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
       let cl = await CallLogs.loadAll();
-      cl = cl.map(call => {
-        let wrappedCall = {
-          placed: call.type !== "MISSED",
-          contact:
-            call.name === null
-              ? formatPhoneNumber(call.phoneNumber + "")
-              : call.name,
-          timestamp: call.timestamp,
-          duration: call.duration
-        };
+      cl = cl
+        .filter(
+          call => call.timestamp >= startTime && call.timestamp <= endTime
+        )
+        .map(call => {
+          let wrappedCall = {
+            placed: call.type !== "MISSED",
+            contact:
+              call.name === null
+                ? formatPhoneNumber(call.phoneNumber + "")
+                : call.name,
+            timestamp: call.timestamp,
+            duration: call.duration
+          };
 
-        return wrappedCall;
-      });
+          return wrappedCall;
+        });
 
-      console.warn(cl);
-      console.warn("permission granted");
       callback(cl);
     } else {
-      console.warn("Call Log permission denied");
       callback([]);
     }
   } catch (e) {
-    console.warn("there was an error");
-    console.warn(e);
     callback([]);
   }
 }

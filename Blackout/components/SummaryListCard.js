@@ -34,6 +34,7 @@ class SummaryListCard extends Component {
 
   render() {
     let { summary } = this.props;
+    console.warn(summary.numCalls);
 
     return (
       <CardWrapper>
@@ -66,7 +67,7 @@ class SummaryListCard extends Component {
               {summary.numTexts && (
                 <ValueWrapper text={`${summary.numTexts} Texts`} />
               )}
-              {summary.numCalls && (
+              {summary.numCalls !== null && (
                 <ValueWrapper text={`${summary.numCalls} Calls`} />
               )}
               {summary.numPhotos && (
