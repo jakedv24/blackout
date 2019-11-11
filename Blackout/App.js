@@ -26,6 +26,8 @@ export default function App(props) {
         onFinish={() => handleFinishLoading(setLoadingComplete)}
       />
     );
+  } else if (!isLoadingComplete) {
+    return <SplashScreen />;
   } else {
     return (
       <Provider store={store}>

@@ -11,6 +11,7 @@ import { material, systemWeights } from "react-native-typography";
 import LocationSummary from "../components/LocationSummary";
 import PhotoSummary from "../components/PhotoSummary";
 import Colors from "../constants/Colors";
+import { AppLoading, SplashScreen } from "expo";
 import TextMessagesSummary from "../components/TextMessagesSummary";
 
 class SummaryScreen extends Component {

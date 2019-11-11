@@ -4,19 +4,25 @@
     "slug": "Blackout",
     "privacy": "public",
     "sdkVersion": "35.0.0",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/blackoutLogo.png",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/splashCover.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#050404"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -28,6 +34,7 @@
           "apiKey": "AIzaSyCK5TW6Uk4n6NKvWIlK4xa9df-kf6PQ4jE"
         }
       }
-    }
+    },
+    "description": ""
   }
 }
