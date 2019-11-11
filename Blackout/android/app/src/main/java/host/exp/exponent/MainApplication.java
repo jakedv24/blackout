@@ -1,6 +1,7 @@
 package host.exp.exponent;
 
 import com.facebook.react.ReactPackage;
+import com.wscodelabs.callLogs.CallLogPackage;
 
 import org.unimodules.core.interfaces.Package;
 
@@ -16,33 +17,34 @@ import okhttp3.OkHttpClient;
 
 public class MainApplication extends ExpoApplication implements AppLoaderPackagesProviderInterface<ReactPackage> {
 
-  @Override
-  public boolean isDebug() {
-    return BuildConfig.DEBUG;
-  }
+    public static OkHttpClient.Builder okHttpClientBuilder(OkHttpClient.Builder builder) {
+        // Customize/override OkHttp client here
+        return builder;
+    }
 
-  // Needed for `react-native link`
-  public List<ReactPackage> getPackages() {
-    return Arrays.<ReactPackage>asList(
-        // Add your own packages here!
-        // TODO: add native modules!
+    @Override
+    public boolean isDebug() {
+        return BuildConfig.DEBUG;
+    }
 
-        // Needed for `react-native link`
-        // new MainReactPackage()
-    );
-  }
+    // Needed for `react-native link`
+    public List<ReactPackage> getPackages() {
+        return Arrays.<ReactPackage>asList(
+                // Add your own packages here!
+                // TODO: add native modules!
 
-  public List<Package> getExpoPackages() {
-    return new BasePackageList().getPackageList();
-  }
+                // Needed for `react-native link`
+                //  new MainReactPackage(),
+                new CallLogPackage()
+        );
+    }
 
-  @Override
-  public String gcmSenderId() {
-    return getString(R.string.gcm_defaultSenderId);
-  }
+    public List<Package> getExpoPackages() {
+        return new BasePackageList().getPackageList();
+    }
 
-  public static OkHttpClient.Builder okHttpClientBuilder(OkHttpClient.Builder builder) {
-    // Customize/override OkHttp client here
-    return builder;
-  }
+    @Override
+    public String gcmSenderId() {
+        return getString(R.string.gcm_defaultSenderId);
+    }
 }

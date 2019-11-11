@@ -20,42 +20,53 @@ export async function getLastSavedData(callback) {
   summaries = JSON.parse(summaries);
 
   let maxStartTime = 0;
-  summaries = summaries.map(element => {
-    if (element.startTime > maxStartTime) {
-      maxStartTime = element.startTime;
-    }
+  await Promise.all(
+    summaries.map(async element => {
+      if (element.startTime > maxStartTime) {
+        maxStartTime = element.startTime;
+      }
 
-    if (!element.numCalls) {
-      element.numCalls = getCallsForTimePeriod(
-        element.startTime,
-        element.endTime
-      ).length;
-    }
+      if (!element.numCalls) {
+        await getCallsForTimePeriod(
+          element.startTime,
+          element.endTime,
+          calls => {
+            element.numCalls = calls.length;
+          }
+        );
+      }
 
-    if (!element.numMiles) {
-      element.numMiles = getDistanceFromCoordinates(
-        getLocationsForStartAndEndTime(element.startTime, element.endTime)
-      );
-    }
+      if (!element.numMiles) {
+        element.numMiles = getDistanceFromCoordinates(
+          getLocationsForStartAndEndTime(element.startTime, element.endTime)
+        );
+      }
 
-    if (!element.numPhotos) {
-      getPhotosFromStartToEndTime(
-        element.startTime,
-        element.endTime,
-        photos => {
-          element.numPhotos = photos.length;
-        }
-      );
-    }
+      if (!element.numPhotos) {
+        getPhotosFromStartToEndTime(
+          element.startTime,
+          element.endTime,
+          photos => {
+            element.numPhotos = photos.length;
+          }
+        );
+      }
 
-    if (!element.numTexts) {
-      getTextsForStartAndEndTime(element.startTime, element.endTime, texts => {
-        element.numTexts = texts.length;
-      });
-    }
+      if (!element.numTexts) {
+        getTextsForStartAndEndTime(
+          element.startTime,
+          element.endTime,
+          texts => {
+            element.numTexts = texts.length;
+          }
+        );
+      }
 
-    return element;
-  });
+      return element;
+    })
+  ).then(newSummaries => (summaries = newSummaries));
+
+  console.warn(summaries);
 
   AsyncStorage.setItem(summariesKey, JSON.stringify(summaries));
   let data = await AsyncStorage.getItem(maxStartTime);
@@ -63,8 +74,11 @@ export async function getLastSavedData(callback) {
   // and append the information to the data object here
   data = JSON.parse(data);
   if (!data.calls) {
-    const calls = getCallsForTimePeriod(data.startTime, data.endTime);
-    data.calls = calls;
+    await getCallsForTimePeriod(
+      data.startTime,
+      data.endTime,
+      calls => (data.calls = calls)
+    );
   }
 
   if (!data.locations) {
@@ -91,7 +105,7 @@ export async function getLastSavedData(callback) {
     );
   }
 
-  await AsyncStorage.setItem(maxStartTime, JSON.stringify(data));
+  AsyncStorage.setItem(maxStartTime, JSON.stringify(data));
   callback(data);
 }
 
@@ -104,7 +118,7 @@ export async function getSavedDataForStartTime(startTime, callback) {
 export function startTracking() {
   const now = new Date();
   AsyncStorage.setItem(trackingKey, "true");
-  AsyncStorage.setItem(startTimeKey, now.getTime().toString());
+  AsyncStorage.setItem(startTimeKey, JSON.stringify(now.getTime()));
 }
 
 export async function stopTracking(callback) {
@@ -135,8 +149,8 @@ export async function stopTracking(callback) {
       summaries = [newSummary];
     }
 
-    await AsyncStorage.setItem(summariesKey, JSON.stringify(summaries));
-    await AsyncStorage.setItem(startTime, JSON.stringify(newData));
+    AsyncStorage.setItem(summariesKey, JSON.stringify(summaries));
+    AsyncStorage.setItem(startTime, JSON.stringify(newData));
     callback();
   }
 }

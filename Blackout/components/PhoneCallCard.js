@@ -2,11 +2,17 @@ import React, { Component } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import CardWrapper from "./CardWrapper";
+import { formatTimeStringFromMillis } from "../utils/DateUtils";
 
 class PhoneCallCard extends Component {
   state = {};
+
+  getCallTimestamp = time => {
+    return formatTimeStringFromMillis(time);
+  };
+
   render() {
-    const { contact, startTime, callLength, placed } = this.props;
+    const { contact, timestamp, duration, placed } = this.props;
     return (
       <CardWrapper style={styles.cardWrapper}>
         <View style={styles.contentWrapper}>
@@ -22,8 +28,10 @@ class PhoneCallCard extends Component {
               {contact}
             </Text>
             <View style={styles.subTextWrapper}>
-              <Text style={styles.subText}>{startTime}</Text>
-              <Text style={styles.subText}>{callLength}</Text>
+              <Text style={styles.subText}>
+                {this.getCallTimestamp(timestamp)}
+              </Text>
+              <Text style={styles.subText}>{`${duration} MIN`}</Text>
             </View>
           </View>
         </View>
@@ -36,7 +44,7 @@ export default PhoneCallCard;
 
 const styles = StyleSheet.create({
   cardWrapper: {
-    width: 150
+    minWidth: 175
   },
   contentWrapper: {
     flex: 1,

@@ -17,11 +17,11 @@ class PhoneCallSummary extends Component {
             style={styles.card}
             placed={item.placed}
             contact={item.contact}
-            startTime={item.startTime}
-            callLength={item.callLength}
+            timestamp={item.timestamp}
+            duration={item.duration}
           ></PhoneCallCard>
         )}
-        keyExtractor={item => item.startTime}
+        keyExtractor={item => item.timestamp}
         horizontal
       />
     );
