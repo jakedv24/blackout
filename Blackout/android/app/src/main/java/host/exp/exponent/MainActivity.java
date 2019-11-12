@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.modules.core.PermissionAwareActivity;

@@ -1,6 +1,8 @@
 package host.exp.exponent;
 
+import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactPackage;
+import com.react.SmsPackage;
 import com.wscodelabs.callLogs.CallLogPackage;
 
 import org.unimodules.core.interfaces.Package;
@@ -35,7 +37,8 @@ public class MainApplication extends ExpoApplication implements AppLoaderPackage
 
                 // Needed for `react-native link`
                 //  new MainReactPackage(),
-                new CallLogPackage()
+                new CallLogPackage(),
+                new SmsPackage()
         );
     }
 

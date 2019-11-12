@@ -61,12 +61,14 @@ android {
     debug {
       debuggable true
       ext.enableCrashlytics = false
+      matchingFallbacks = ['release', 'debug']
     }
     release {
       minifyEnabled true
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       consumerProguardFiles 'proguard-rules.pro'
       signingConfig signingConfigs.release
+      matchingFallbacks = ['release', 'debug']
     }
   }
   lintOptions {
@@ -104,6 +106,7 @@ apply from: "../../node_modules/react-native-unimodules/gradle.groovy"
 
 dependencies {
   implementation project(':react-native-call-log')
+  implementation project(':react-native-get-sms-android')
 
   implementation fileTree(dir: 'libs', include: ['*.jar'])
 
