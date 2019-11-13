@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from "react-native";
 import { ExpoConfigView } from "@expo/samples";
 import SettingLine from "../components/SettingLine";
 import HorizontalRule from "../components/HorizontalRule";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function SettingsScreen() {
   /**
@@ -10,15 +11,17 @@ export default function SettingsScreen() {
    * we just wanted to give you a quick view of your config.
    */
   return (
-    <View>
-      <SettingLine sectionTitle="Phone" />
-      <HorizontalRule />
-      <SettingLine sectionTitle="Text" />
-      <HorizontalRule />
-      <SettingLine sectionTitle="Photo" />
-      <HorizontalRule />
-      <SettingLine sectionTitle="Location" />
-    </View>
+    <ScrollView>
+      <View>
+        <SettingLine sectionTitle="Phone" />
+
+        <SettingLine sectionTitle="Text" />
+
+        <SettingLine sectionTitle="Photo" />
+
+        <SettingLine sectionTitle="Location" />
+      </View>
+    </ScrollView>
   );
 }
 
