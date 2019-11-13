@@ -60,8 +60,6 @@ android {
   buildTypes {
     debug {
       debuggable true
-      ext.enableCrashlytics = false
-      matchingFallbacks = ['release', 'debug']
     }
     release {
       minifyEnabled true
@@ -106,7 +104,6 @@ apply from: "../../node_modules/react-native-unimodules/gradle.groovy"
 
 dependencies {
   implementation project(':react-native-call-log')
-  implementation project(':react-native-get-sms-android')
 
   implementation fileTree(dir: 'libs', include: ['*.jar'])
 

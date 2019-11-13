@@ -13,12 +13,12 @@ import com.facebook.react.bridge.Callback;
 import com.facebook.react.modules.core.PermissionAwareActivity;
 import com.facebook.react.modules.core.PermissionListener;
 
-import org.unimodules.core.interfaces.Package;
-
 import java.util.List;
 
 import host.exp.exponent.experience.DetachActivity;
 import host.exp.exponent.generated.DetachBuildConstants;
+
+import org.unimodules.core.interfaces.Package;
 
 public class MainActivity extends DetachActivity implements PermissionAwareActivity {
   @Nullable
@@ -30,7 +30,9 @@ public class MainActivity extends DetachActivity implements PermissionAwareActiv
 
   @Override
   public String publishedUrl() {
-    return "exp://exp.host/@jakedv24/Blackout";
+//    return "exp://exp.host/@jakedv24/Blackout";
+    return DetachBuildConstants.DEVELOPMENT_URL;
+
   }
 
   @Override

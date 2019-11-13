@@ -53,7 +53,7 @@ export async function getLastSavedData(callback) {
       }
 
       if (!element.numTexts) {
-        getTextsForStartAndEndTime(
+        await getTextsForStartAndEndTime(
           element.startTime,
           element.endTime,
           texts => {

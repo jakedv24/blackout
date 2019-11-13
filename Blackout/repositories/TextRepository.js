@@ -23,6 +23,12 @@ const mockTexts = [
     contact: "Dad",
     timestamp: 157195464468,
     message: "Go get em Tiger"
+  },
+  {
+    outgoing: true,
+    contact: "hello",
+    timestamp: 12123232423,
+    message: "Hello world"
   }
 ];
 
