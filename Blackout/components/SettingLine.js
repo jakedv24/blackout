@@ -10,6 +10,7 @@ class SettingLine extends Component {
     const { sectionTitle } = this.props;
     return (
       <View>
+        <Text style={styles.settingName}>{sectionTitle}</Text>
         <TrackingToggle />
       </View>
     );
