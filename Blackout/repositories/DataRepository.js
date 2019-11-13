@@ -96,7 +96,7 @@ export async function getLastSavedData(callback) {
   }
 
   if (!data.texts) {
-    getTextsForStartAndEndTime(
+    await getTextsForStartAndEndTime(
       data.startTime,
       data.endTime,
       texts => (data.texts = texts)

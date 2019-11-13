@@ -34,7 +34,6 @@ class SummaryListCard extends Component {
 
   render() {
     let { summary } = this.props;
-    console.warn(summary.numCalls);
 
     return (
       <CardWrapper>
@@ -64,7 +63,7 @@ class SummaryListCard extends Component {
             </View>
             <HorizontalRule />
             <View style={styles.allValuesWrapper}>
-              {summary.numTexts && (
+              {summary.numTexts !== null && (
                 <ValueWrapper text={`${summary.numTexts} Texts`} />
               )}
               {summary.numCalls !== null && (
@@ -99,10 +98,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SummaryListCard);
+export default connect(mapStateToProps, mapDispatchToProps)(SummaryListCard);
 
 const styles = StyleSheet.create({
   contentWrapper: {

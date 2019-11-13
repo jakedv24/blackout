@@ -11,6 +11,7 @@ import java.util.List;
 
 import expo.loaders.provider.interfaces.AppLoaderPackagesProviderInterface;
 import host.exp.exponent.generated.BasePackageList;
+import host.exp.exponent.messageModule.MessagesPackage;
 import okhttp3.OkHttpClient;
 
 // Needed for `react-native link`
@@ -36,7 +37,8 @@ public class MainApplication extends ExpoApplication implements AppLoaderPackage
 
                 // Needed for `react-native link`
                 //  new MainReactPackage(),
-                new CallLogPackage()
+                new CallLogPackage(),
+                new MessagesPackage()
         );
     }
 

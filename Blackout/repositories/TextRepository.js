@@ -1,3 +1,6 @@
+import { NativeModules } from "react-native";
+import { PermissionsAndroid } from "react-native";
+
 const mockTexts = [
   {
     outgoing: true,
@@ -32,6 +35,39 @@ const mockTexts = [
   }
 ];
 
-export const getTextsForStartAndEndTime = (startTime, endTime, callback) => {
-  callback(mockTexts);
+export const getTextsForStartAndEndTime = async (
+  startTime,
+  endTime,
+  callback
+) => {
+  try {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.READ_SMS,
+      {
+        title: "Call Log Example",
+        message: "Access your call logs",
+        buttonNeutral: "Ask Me Later",
+        buttonNegative: "Cancel",
+        buttonPositive: "OK"
+      }
+    );
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      console.warn("Granted");
+      NativeModules.MessageModule.getAllMessages(
+        startTime,
+        JSON.stringify(endTime),
+        s => {
+          console.warn(JSON.parse(s));
+
+          callback([]);
+        }
+      );
+    } else {
+      console.warn("not granted");
+      callback([]);
+    }
+  } catch (e) {
+    console.warn("error");
+    callback([]);
+  }
 };
