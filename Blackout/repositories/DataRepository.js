@@ -59,10 +59,8 @@ export async function getLastSavedData(callback) {
           element.endTime
         );
         element.numTexts = texts.length;
-        console.warn("new: " + element.numTexts);
       }
 
-      // console.warn(element);
       return element;
     })
   ).then(newSummaries => (summaries = newSummaries));
@@ -97,11 +95,7 @@ export async function getLastSavedData(callback) {
   }
 
   if (!data.texts) {
-    await getTextsForStartAndEndTime(
-      data.startTime,
-      data.endTime,
-      texts => (data.texts = texts)
-    );
+    data.texts = await getTextsForStartAndEndTime(data.startTime, data.endTime);
   }
 
   AsyncStorage.setItem(maxStartTime, JSON.stringify(data));
