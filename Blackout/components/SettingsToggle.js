@@ -3,17 +3,33 @@ import { StyleSheet } from "react-native";
 import { Switch } from "react-native-gesture-handler";
 
 class SettingsToggle extends Component {
-  state = {};
+  state = {
+    value: false
+  };
+  valueDidChange = value => {
+    this.setState({ value });
+    if (value) {
+      value = false;
+    } else {
+      value = true;
+    }
+  };
   render() {
     return (
       <Switch
         style={styles.switch}
         onValueChange={this.valueDidChange}
-        value={true}
+        value={this.state.value}
       />
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    tracking: state.tracking
+  };
+};
 export default SettingsToggle;
 const styles = StyleSheet.create({
   switch: {
