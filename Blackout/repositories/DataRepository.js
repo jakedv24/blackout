@@ -53,7 +53,6 @@ export async function getLastSavedData(callback) {
       }
 
       if (element.numTexts == null || element.numTexts == undefined) {
-        console.warn(element.numTexts);
         const texts = await getTextsForStartAndEndTime(
           element.startTime,
           element.endTime
