@@ -3,18 +3,31 @@ package host.exp.exponent.messageModule;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.provider.Telephony;
-import android.telecom.Call;
-import android.telephony.SmsMessage;
+
+import androidx.annotation.NonNull;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.WritableArray;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.bridge.WritableNativeMap;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Iterator;
+
 import javax.annotation.Nonnull;
+
+import static com.facebook.react.bridge.ReadableType.Array;
+import static com.facebook.react.bridge.ReadableType.Map;
 
 public class MessageModule extends ReactContextBaseJavaModule {
     private static final String NAME = "MessageModule";
@@ -27,14 +40,14 @@ public class MessageModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getAllMessages(String startTime, String endTime, Callback callback) {
+    public void getAllMessages(String startTime, String endTime, Callback callback) throws JSONException {
         getAllSms(Double.parseDouble(startTime), Double.parseDouble(endTime), callback);
     }
 
-    public void getAllSms(double startTime, double endTime, Callback callback) {
+    public void getAllSms(double startTime, double endTime, Callback callback) throws JSONException {
         Cursor c = contentResolver.query(Telephony.Sms.CONTENT_URI, null, null, null, null);
-        WritableArray messages = new WritableNativeArray();
-        int totalSMS = 0;
+        WritableNativeArray messages = new WritableNativeArray();
+        int totalSMS;
         if (c != null) {
             totalSMS = c.getCount();
             if (c.moveToFirst()) {
@@ -45,7 +58,7 @@ public class MessageModule extends ReactContextBaseJavaModule {
                         break;
                     }
 
-                    double number = Double.parseDouble(c.getString(c.getColumnIndexOrThrow(Telephony.Sms.ADDRESS)));
+                    String number = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.ADDRESS));
                     String body = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.BODY));
                     boolean outgoing;
                     switch (Integer.parseInt(c.getString(c.getColumnIndexOrThrow(Telephony.Sms.TYPE)))) {
@@ -58,11 +71,8 @@ public class MessageModule extends ReactContextBaseJavaModule {
                             break;
                     }
 
-                    WritableNativeMap map = new WritableNativeMap();
-                    map.putString("outgoing", outgoing + "");
-                    map.putString("timestamp", smsDate);
-                    map.putString("message", body);
-                    map.putString("contact", number + "");
+                    Message message = new Message(outgoing, number, timestamp, body);
+                    WritableMap map = convertJsonToMap(new JSONObject(message.toJsonString()));
                     messages.pushMap(map);
                     c.moveToNext();
                 }
@@ -78,5 +88,110 @@ public class MessageModule extends ReactContextBaseJavaModule {
     @Override
     public String getName() {
         return NAME;
+    }
+
+    private static WritableMap convertJsonToMap(JSONObject jsonObject) throws JSONException {
+        WritableMap map = new WritableNativeMap();
+
+        Iterator<String> iterator = jsonObject.keys();
+        while (iterator.hasNext()) {
+            String key = iterator.next();
+            Object value = jsonObject.get(key);
+            if (value instanceof JSONObject) {
+                map.putMap(key, convertJsonToMap((JSONObject) value));
+            } else if (value instanceof  JSONArray) {
+                map.putArray(key, convertJsonToArray((JSONArray) value));
+            } else if (value instanceof  Boolean) {
+                map.putBoolean(key, (Boolean) value);
+            } else if (value instanceof  Integer) {
+                map.putInt(key, (Integer) value);
+            } else if (value instanceof  Double) {
+                map.putDouble(key, (Double) value);
+            } else if (value instanceof String)  {
+                map.putString(key, (String) value);
+            } else {
+                map.putString(key, value.toString());
+            }
+        }
+        return map;
+    }
+
+    private static WritableArray convertJsonToArray(JSONArray jsonArray) throws JSONException {
+        WritableArray array = new WritableNativeArray();
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            Object value = jsonArray.get(i);
+            if (value instanceof JSONObject) {
+                array.pushMap(convertJsonToMap((JSONObject) value));
+            } else if (value instanceof  JSONArray) {
+                array.pushArray(convertJsonToArray((JSONArray) value));
+            } else if (value instanceof  Boolean) {
+                array.pushBoolean((Boolean) value);
+            } else if (value instanceof  Integer) {
+                array.pushInt((Integer) value);
+            } else if (value instanceof  Double) {
+                array.pushDouble((Double) value);
+            } else if (value instanceof String)  {
+                array.pushString((String) value);
+            } else {
+                array.pushString(value.toString());
+            }
+        }
+        return array;
+    }
+
+    private static JSONObject convertMapToJson(@NonNull ReadableMap readableMap) throws JSONException {
+        JSONObject object = new JSONObject();
+        ReadableMapKeySetIterator iterator = readableMap.keySetIterator();
+        while (iterator.hasNextKey()) {
+            String key = iterator.nextKey();
+            switch (readableMap.getType(key)) {
+                case Null:
+                    object.put(key, JSONObject.NULL);
+                    break;
+                case Boolean:
+                    object.put(key, readableMap.getBoolean(key));
+                    break;
+                case Number:
+                    object.put(key, readableMap.getDouble(key));
+                    break;
+                case String:
+                    object.put(key, readableMap.getString(key));
+                    break;
+                case Map:
+                    object.put(key, convertMapToJson(readableMap.getMap(key)));
+                    break;
+                case Array:
+                    object.put(key, convertArrayToJson(readableMap.getArray(key)));
+                    break;
+            }
+        }
+        return object;
+    }
+
+    private static JSONArray convertArrayToJson(@NonNull ReadableArray readableArray) throws JSONException {
+        JSONArray array = new JSONArray();
+        for (int i = 0; i < readableArray.size(); i++) {
+            switch (readableArray.getType(i)) {
+                case Null:
+                    break;
+                case Boolean:
+                    array.put(readableArray.getBoolean(i));
+                    break;
+                case Number:
+                    array.put(readableArray.getDouble(i));
+                    break;
+                case String:
+                    array.put(readableArray.getString(i));
+                    break;
+                case Map:
+                    array.put(convertMapToJson(readableArray.getMap(i)));
+                    break;
+                case Array:
+                    array.put(convertArrayToJson(readableArray.getArray(i)));
+                    break;
+            }
+        }
+        return array;
     }
 }

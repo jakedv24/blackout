@@ -67,7 +67,7 @@ export async function getLastSavedData(callback) {
   ).then(newSummaries => (summaries = newSummaries));
 
   AsyncStorage.setItem(summariesKey, JSON.stringify(summaries));
-  let data = await AsyncStorage.getItem(maxStartTime);
+  let data = await AsyncStorage.getItem(maxStartTime.toString());
   // TODO: import libraries to access call log, messages, photos, etc.
   // and append the information to the data object here
   data = JSON.parse(data);

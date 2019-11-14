@@ -1,12 +1,14 @@
 package host.exp.exponent.messageModule;
 
+import com.google.gson.GsonBuilder;
+
 public class Message {
     private boolean outgoing;
     private String contact;
-    private long timestamp;
+    private double timestamp;
     private String message;
 
-    public Message(boolean outgoing, String contact, long timestamp, String message) {
+    public Message(boolean outgoing, String contact, double timestamp, String message) {
         this.outgoing = outgoing;
         this.contact = contact;
         this.timestamp = timestamp;
@@ -29,11 +31,11 @@ public class Message {
         this.contact = contact;
     }
 
-    public long getTimestamp() {
+    public double getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(double timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -43,5 +45,10 @@ public class Message {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String toJsonString() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        return gsonBuilder.create().toJson(this);
     }
 }

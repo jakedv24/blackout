@@ -36,7 +36,7 @@ class CalendarScreen extends Component {
         renderItem={({ item }) => (
           <SummaryListCard summary={item} navigation={this.props.navigation} />
         )}
-        keyExtractor={item => item.startTime}
+        keyExtractor={item => item.startTime.toString()}
       />
     );
   };
@@ -63,10 +63,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CalendarScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(CalendarScreen);
 
 const styles = StyleSheet.create({
   container: {

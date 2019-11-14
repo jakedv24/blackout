@@ -52,14 +52,15 @@ export const getTextsForStartAndEndTime = async (
       }
     );
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.warn("Granted");
+      startTime = startTime.toString();
+      endTime = endTime.toString();
+      console.warn("Granted " + typeof startTime + " " + typeof endTime);
       NativeModules.MessageModule.getAllMessages(
-        startTime,
-        JSON.stringify(endTime),
+        startTime.toString(),
+        endTime.toString(),
         s => {
-          console.warn(JSON.parse(s));
-
-          callback([]);
+          console.warn("hello");
+          callback(mockTexts);
         }
       );
     } else {
