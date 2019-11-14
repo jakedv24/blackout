@@ -34,6 +34,7 @@ class SummaryListCard extends Component {
 
   render() {
     let { summary } = this.props;
+    // console.warn(summary);
 
     return (
       <CardWrapper>

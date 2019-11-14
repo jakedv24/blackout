@@ -26,7 +26,7 @@ export async function getLastSavedData(callback) {
         maxStartTime = element.startTime;
       }
 
-      if (!element.numCalls) {
+      if (element.numCalls == null || element.numCalls == undefined) {
         await getCallsForTimePeriod(
           element.startTime,
           element.endTime,
@@ -36,13 +36,13 @@ export async function getLastSavedData(callback) {
         );
       }
 
-      if (!element.numMiles) {
+      if (element.numMiles == null || element.numMiles == undefined) {
         element.numMiles = getDistanceFromCoordinates(
           getLocationsForStartAndEndTime(element.startTime, element.endTime)
         );
       }
 
-      if (!element.numPhotos) {
+      if (element.numPhotos == null || element.numPhotos == undefined) {
         getPhotosFromStartToEndTime(
           element.startTime,
           element.endTime,
@@ -52,16 +52,17 @@ export async function getLastSavedData(callback) {
         );
       }
 
-      if (!element.numTexts) {
-        await getTextsForStartAndEndTime(
+      if (element.numTexts == null || element.numTexts == undefined) {
+        console.warn(element.numTexts);
+        const texts = await getTextsForStartAndEndTime(
           element.startTime,
-          element.endTime,
-          texts => {
-            element.numTexts = texts.length;
-          }
+          element.endTime
         );
+        element.numTexts = texts.length;
+        console.warn("new: " + element.numTexts);
       }
 
+      // console.warn(element);
       return element;
     })
   ).then(newSummaries => (summaries = newSummaries));
