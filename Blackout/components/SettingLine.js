@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import TrackingToggle from "./header/TrackingToggle";
 import { StyleSheet, Text } from "react-native";
 import { ThemeColors } from "react-navigation";
+import SettingsToggle from "./SettingsToggle";
 import HorizontalRule from "./HorizontalRule";
 
 class SettingLine extends Component {
@@ -16,7 +17,7 @@ class SettingLine extends Component {
           <Text style={styles.settingName}>{sectionTitle}</Text>
         </View>
         <View stlye={styles.subToogleWrapper}>
-          <TrackingToggle stlye={styles.toggle} />
+          <SettingsToggle />
         </View>
         <HorizontalRule />
       </View>
@@ -40,11 +41,10 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   toggle: {
-    alignSelf: "flex-end",
-    flex: 1
+    alignSelf: "flex-end"
   },
   subToogleWrapper: {
-    flex: 1,
+    flex: 2,
     flexDirection: "row",
     justifyContent: "space-between"
   }
