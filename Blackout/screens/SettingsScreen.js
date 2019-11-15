@@ -13,13 +13,14 @@ export default function SettingsScreen() {
   return (
     <ScrollView>
       <View>
-        <SettingLine sectionTitle="Phone" />
-
-        <SettingLine sectionTitle="Text" />
-
-        <SettingLine sectionTitle="Photo" />
-
+        <SettingLine sectionTitle="Phone Calls" />
+        <HorizontalRule />
+        <SettingLine sectionTitle="Text Messages" />
+        <HorizontalRule />
+        <SettingLine sectionTitle="Photos" />
+        <HorizontalRule />
         <SettingLine sectionTitle="Location" />
+        <HorizontalRule />
       </View>
     </ScrollView>
   );

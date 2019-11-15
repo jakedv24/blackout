@@ -12,14 +12,14 @@ class SettingLine extends Component {
   render() {
     const { sectionTitle } = this.props;
     return (
-      <View stlye={styles.contentWrapper}>
-        <View stlye={styles.textWrapper}>
+      <View style={styles.contentWrapper}>
+        <View style={styles.textWrapper}>
           <Text style={styles.settingName}>{sectionTitle}</Text>
         </View>
-        <View stlye={styles.subToogleWrapper}>
+        <View style={styles.subToogleWrapper}>
+          <HorizontalRule />
           <SettingsToggle />
         </View>
-        <HorizontalRule />
       </View>
     );
   }
@@ -37,14 +37,15 @@ const styles = StyleSheet.create({
   },
   textWrapper: {
     flex: 1,
-    flexDirection: "column",
-    marginLeft: 10
+    flexDirection: "row",
+    marginLeft: 10,
+    justifyContent: "space-between"
   },
   toggle: {
     alignSelf: "flex-end"
   },
   subToogleWrapper: {
-    flex: 2,
+    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between"
   }
