@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Text } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { View, Text } from "react-native";
 
 class SplashScreen extends Component {
   render() {
