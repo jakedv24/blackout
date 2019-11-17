@@ -2,6 +2,7 @@ package host.exp.exponent;
 
 import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactPackage;
+import com.reactnativecommunity.cameraroll.CameraRollPackage;
 import com.wscodelabs.callLogs.CallLogPackage;
 
 import org.unimodules.core.interfaces.Package;
@@ -31,12 +32,10 @@ public class MainApplication extends ExpoApplication implements AppLoaderPackage
 
     // Needed for `react-native link`
     public List<ReactPackage> getPackages() {
-        return Arrays.<ReactPackage>asList(
-                // Add your own packages here!
-                // TODO: add native modules!
-
+        return Arrays.asList(
                 // Needed for `react-native link`
                 //  new MainReactPackage(),
+                new CameraRollPackage(),
                 new CallLogPackage(),
                 new MessagesPackage()
         );
