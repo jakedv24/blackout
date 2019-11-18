@@ -19,7 +19,7 @@ export const getPhotosFromStartToEndTime = (startTime, endTime) => {
         endTime = endTime.toString();
 
         let photos = await CameraRoll.getPhotos({
-          first: 20,
+          first: 10000,
           assetType: "Photos",
           groupName: "Camera"
         });
