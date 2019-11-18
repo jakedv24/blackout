@@ -26,5 +26,5 @@ export default function SettingsScreen() {
 }
 
 SettingsScreen.navigationOptions = {
-  title: "Setting"
+  title: "Settings"
 };
