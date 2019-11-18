@@ -69,10 +69,10 @@ class SummaryListCard extends Component {
               {summary.numCalls !== null && (
                 <ValueWrapper text={`${summary.numCalls} Calls`} />
               )}
-              {summary.numPhotos && (
+              {summary.numPhotos !== null && (
                 <ValueWrapper text={`${summary.numPhotos} Photos`} />
               )}
-              {summary.numMiles && (
+              {summary.numMiles !== null && (
                 <ValueWrapper text={`${summary.numMiles} Miles`} />
               )}
             </View>

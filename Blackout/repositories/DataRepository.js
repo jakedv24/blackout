@@ -43,13 +43,11 @@ export async function getLastSavedData(callback) {
       }
 
       if (element.numPhotos == null || element.numPhotos == undefined) {
-        getPhotosFromStartToEndTime(
+        const photos = await getPhotosFromStartToEndTime(
           element.startTime,
-          element.endTime,
-          photos => {
-            element.numPhotos = photos.length;
-          }
+          element.endTime
         );
+        element.numPhotos = photos.length;
       }
 
       if (element.numTexts == null || element.numTexts == undefined) {
@@ -66,9 +64,8 @@ export async function getLastSavedData(callback) {
 
   AsyncStorage.setItem(summariesKey, JSON.stringify(summaries));
   let data = await AsyncStorage.getItem(maxStartTime.toString());
-  // TODO: import libraries to access call log, messages, photos, etc.
-  // and append the information to the data object here
   data = JSON.parse(data);
+
   if (!data.calls) {
     await getCallsForTimePeriod(
       data.startTime,
@@ -86,11 +83,11 @@ export async function getLastSavedData(callback) {
   }
 
   if (!data.photos) {
-    getPhotosFromStartToEndTime(
+    const photos = await getPhotosFromStartToEndTime(
       data.startTime,
-      data.endTime,
-      photos => (data.photos = photos)
+      data.endTime
     );
+    data.photos = photos;
   }
 
   if (!data.texts) {

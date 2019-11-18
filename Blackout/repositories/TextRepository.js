@@ -7,8 +7,8 @@ export async function getTextsForStartAndEndTime(startTime, endTime) {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.READ_SMS,
         {
-          title: "Call Log Example",
-          message: "Access your call logs",
+          title: "Text Permissions",
+          message: "We need to access your texts to build your summaries.",
           buttonNeutral: "Ask Me Later",
           buttonNegative: "Cancel",
           buttonPositive: "OK"

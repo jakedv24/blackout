@@ -27,11 +27,12 @@ class PhotoSummary extends Component {
           sectionTitle="Photos"
           numItems={(photos && photos.length) || 0}
           content={this.getPhotosContent(photos)}
-        ></SummarySection>
+        />
       </View>
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     photos: state.data ? state.data.photos : []
@@ -42,7 +43,4 @@ const mapDispatchToProps = () => {
   return {};
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PhotoSummary);
+export default connect(mapStateToProps, mapDispatchToProps)(PhotoSummary);

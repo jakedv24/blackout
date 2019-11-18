@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
 import { formatTimeStringFromMillis } from "../utils/DateUtils";
 
-// TODO remove when not mocking photos
-const mockPhoto = require("../repositories/mockImages/drunkPeople.jpg");
-
 class PhotoCard extends Component {
   state = {};
   render() {
@@ -12,7 +9,7 @@ class PhotoCard extends Component {
 
     return (
       <View style={styles.photoWrapper}>
-        <Image style={styles.image} source={mockPhoto} />
+        <Image style={styles.image} source={{ uri: photo.url }} />
         <Text style={styles.timestamp}>
           {formatTimeStringFromMillis(photo.timestamp)}
         </Text>

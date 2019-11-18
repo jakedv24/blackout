@@ -6,8 +6,8 @@ export async function getCallsForTimePeriod(startTime, endTime, callback) {
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.READ_CALL_LOG,
       {
-        title: "Call Log Example",
-        message: "Access your call logs",
+        title: "Call Log",
+        message: "We need to access your call logs to build your summary.",
         buttonNeutral: "Ask Me Later",
         buttonNegative: "Cancel",
         buttonPositive: "OK"
