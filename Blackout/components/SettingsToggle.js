@@ -25,11 +25,6 @@ class SettingsToggle extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    tracking: state.tracking
-  };
-};
 export default SettingsToggle;
 const styles = StyleSheet.create({
   switch: {

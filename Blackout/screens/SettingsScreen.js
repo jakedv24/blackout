@@ -1,6 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
-import { ExpoConfigView } from "@expo/samples";
+import { View } from "react-native";
 import SettingLine from "../components/SettingLine";
 import HorizontalRule from "../components/HorizontalRule";
 import { ScrollView } from "react-native-gesture-handler";

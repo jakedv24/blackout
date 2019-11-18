@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import { View, FlatList } from "react-native";
-import { connect } from "react-redux";
-import TrackingToggle from "./header/TrackingToggle";
+import { View } from "react-native";
 import { StyleSheet, Text } from "react-native";
-import { ThemeColors } from "react-navigation";
 import SettingsToggle from "./SettingsToggle";
 import HorizontalRule from "./HorizontalRule";
 
